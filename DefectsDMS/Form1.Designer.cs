@@ -31,13 +31,13 @@ namespace DefectsDMS
         {
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.показатьИтоговыйОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +48,7 @@ namespace DefectsDMS
             this.справкаToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(800, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1120, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -62,6 +62,24 @@ namespace DefectsDMS
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
+            // показатьИтоговыйОтчётToolStripMenuItem
+            // 
+            this.показатьИтоговыйОтчётToolStripMenuItem.Name = "показатьИтоговыйОтчётToolStripMenuItem";
+            this.показатьИтоговыйОтчётToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.показатьИтоговыйОтчётToolStripMenuItem.Text = "Показать отчёт";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(154, 6);
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            // 
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -72,46 +90,28 @@ namespace DefectsDMS
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.справкаToolStripMenuItem.Text = "Справка";
             // 
-            // оПрограммеToolStripMenuItem
+            // содержаниеToolStripMenuItem
             // 
-            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
-            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.оПрограммеToolStripMenuItem.Text = "О программе";
+            this.содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
+            this.содержаниеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.содержаниеToolStripMenuItem.Text = "Содержание";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(146, 6);
             // 
-            // содержаниеToolStripMenuItem
+            // оПрограммеToolStripMenuItem
             // 
-            this.содержаниеToolStripMenuItem.Name = "содержаниеToolStripMenuItem";
-            this.содержаниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.содержаниеToolStripMenuItem.Text = "Содержание";
-            // 
-            // показатьИтоговыйОтчётToolStripMenuItem
-            // 
-            this.показатьИтоговыйОтчётToolStripMenuItem.Name = "показатьИтоговыйОтчётToolStripMenuItem";
-            this.показатьИтоговыйОтчётToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.показатьИтоговыйОтчётToolStripMenuItem.Text = "Показать отчёт";
-            // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
+            this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.оПрограммеToolStripMenuItem.Text = "О программе";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1120, 550);
             this.Controls.Add(this.mainMenuStrip);
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "Form1";
