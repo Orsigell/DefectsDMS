@@ -98,9 +98,170 @@ namespace DefectsDMS
                 }
             }
         }
-        public Image Segmentation()//Сегментация
+        private class Area
         {
-            return null;
+            public Area(int x, int y, int accuracy, Bitmap bitmap)
+            {
+                AreaId = MaxId;
+                Colors.Add(bitmap.GetPixel(x, y));
+                FindeArea(accuracy, bitmap, x, y);
+                while (lossCalls.Count != 0)
+                {
+                    callCount = 0;
+                    LossCall lossCall = lossCalls.Pop();
+                    FindeArea(lossCall.Accuracy, lossCall.Bitmap, lossCall.CurentX, lossCall.CurentY);
+                }
+                MaxId++;
+            }
+            public Area(int id)
+            {
+                AreaId = id;
+            }
+            private bool RoughlyEqual(Color color1, Color color2, int accuracy)
+            {
+                if ((color1.R - accuracy <= color2.R) && (color1.R + accuracy >= color2.R))
+                {
+                    return true;
+                }
+                if ((color1.G - accuracy <= color2.G) && (color1.G + accuracy >= color2.G))
+                {
+                    return true;
+                }
+                if ((color1.B - accuracy <= color2.B) && (color1.B + accuracy >= color2.B))
+                {
+                    return true;
+                }
+                return false;
+            }
+            private bool LeftAreasCheck(int accuracy, Bitmap bitmap, int x, int y)
+            {
+                if (x > 0)
+                {
+                    return (Areas[x - 1, y] == null) && RoughlyEqual(Colors[AreaId], bitmap.GetPixel(x - 1, y), accuracy);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            private bool UpAreasCheck(int accuracy, Bitmap bitmap, int x, int y)
+            {
+                if (y > 1)
+                {
+                    return (Areas[x, y - 1] == null) && RoughlyEqual(Colors[AreaId], bitmap.GetPixel(x, y - 1), accuracy);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            private bool RightAreasCheck(int accuracy, Bitmap bitmap, int x, int y)
+            {
+                if (x + 1 < bitmap.Width)
+                {
+                    return (Areas[x + 1, y] == null) && RoughlyEqual(Colors[AreaId], bitmap.GetPixel(x + 1, y), accuracy);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            private bool DownAreasCheck(int accuracy, Bitmap bitmap, int x, int y)
+            {
+                if (y + 1 < bitmap.Height)
+                {
+                    return (Areas[x, y + 1] == null) && RoughlyEqual(Colors[AreaId], bitmap.GetPixel(x, y + 1), accuracy);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            private void FindeArea(int accuracy, Bitmap bitmap, int curentX, int curentY)
+            {
+                callCount++;
+                if (callCount < MaxCallCount)
+                {
+                    if (LeftAreasCheck(accuracy, bitmap, curentX, curentY))
+                    {
+                        Areas[curentX - 1, curentY] = new Area(AreaId);
+                        FindeArea(accuracy, bitmap, curentX - 1, curentY);
+                    }
+                    if (UpAreasCheck(accuracy, bitmap, curentX, curentY))
+                    {
+                        Areas[curentX, curentY - 1] = new Area(AreaId);
+                        FindeArea(accuracy, bitmap, curentX, curentY - 1);
+                    }
+                    if (RightAreasCheck(accuracy, bitmap, curentX, curentY))
+                    {
+                        Areas[curentX + 1, curentY] = new Area(AreaId);
+                        FindeArea(accuracy, bitmap, curentX + 1, curentY);
+                    }
+                    if (DownAreasCheck(accuracy, bitmap, curentX, curentY))
+                    {
+                        Areas[curentX, curentY + 1] = new Area(AreaId);
+                        FindeArea(accuracy, bitmap, curentX, curentY + 1);
+                    }
+                }
+                else
+                {
+                    lossCalls.Push(new LossCall(accuracy, bitmap, curentX, curentY));
+                }
+            }
+            private struct LossCall
+            {
+                public LossCall(int accuracy, Bitmap bitmap, int curentX, int curentY)
+                {
+                    Accuracy = accuracy;
+                    Bitmap = bitmap;
+                    CurentX = curentX;
+                    CurentY = curentY;
+                }
+                public int Accuracy;
+                public Bitmap Bitmap;
+                public int CurentX;
+                public int CurentY;
+            }
+            private Stack<LossCall> lossCalls = new Stack<LossCall>();
+            private int callCount = 0;
+            private const int MaxCallCount = 5000;
+            public int AreaId = 0;
+            public static List<Color> Colors = new List<Color>();
+            public static int MaxId = 0;
+            public static Area[,] Areas;
+        }
+        public static Bitmap Segmentation(string path, int accuracy)//Cегментация
+        {
+            Bitmap resultBitmap = (Bitmap)Image.FromFile(path);
+            Area.Areas = new Area[resultBitmap.Width, resultBitmap.Height];
+            for (int x = 0; x < resultBitmap.Width; x++)
+            {
+                for (int y = 0; y < resultBitmap.Height; y++)
+                {
+                    if (Area.Areas[x, y] == null)
+                    {
+                        Area.Areas[x, y] = new Area(x, y, accuracy, resultBitmap);
+                    }
+                }
+            }
+            using (Graphics graphics = Graphics.FromImage(resultBitmap))
+            {
+
+                List<Color> randomColors = new List<Color>();
+                Random random = new Random();
+                foreach (var item in Area.Colors)
+                {
+                    randomColors.Add(Color.FromArgb(random.Next(256), random.Next(256), random.Next(256)));
+                }
+                for (int x = 0; x < resultBitmap.Width; x++)
+                {
+                    for (int y = 0; y < resultBitmap.Height; y++)
+                    {
+                        graphics.FillRectangle(new SolidBrush(randomColors[Area.Areas[x, y].AreaId]), x, y, 1, 1);
+                    }
+                }
+            }
+            return resultBitmap;
         }
     }
 }
