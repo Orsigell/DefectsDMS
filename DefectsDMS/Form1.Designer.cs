@@ -42,8 +42,8 @@ namespace DefectsDMS
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewSec = new System.Windows.Forms.DataGridView();
             this.mainMenuStrip.SuspendLayout();
@@ -159,8 +159,14 @@ namespace DefectsDMS
             this.toolStripLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripLabel1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(65, 23);
+            this.toolStripLabel1.Size = new System.Drawing.Size(65, 22);
             this.toolStripLabel1.Text = "Поиск:";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 25);
             // 
             // toolStripLabel3
             // 
@@ -168,15 +174,9 @@ namespace DefectsDMS
             this.toolStripLabel3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripLabel3.Name = "toolStripLabel3";
             this.toolStripLabel3.Padding = new System.Windows.Forms.Padding(0, 0, 20, 0);
-            this.toolStripLabel3.Size = new System.Drawing.Size(153, 23);
+            this.toolStripLabel3.Size = new System.Drawing.Size(153, 22);
             this.toolStripLabel3.Text = "Сброс фильтра";
             this.toolStripLabel3.Click += new System.EventHandler(this.toolStripLabel3_Click);
-            // 
-            // toolStripTextBox1
-            // 
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 26);
             // 
             // toolStripButton1
             // 
