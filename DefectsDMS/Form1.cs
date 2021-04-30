@@ -17,6 +17,7 @@ namespace DefectsDMS
         SqlConnection sqlCon = null;
         SqlDataAdapter sqlAdapter = null;
         DataTable table = new DataTable();
+         
         public Form1()
         {
             InitializeComponent();
@@ -29,21 +30,21 @@ namespace DefectsDMS
                 table.Clear();
                 sqlAdapter.Fill(table);
                 dataGridViewMain.DataSource = table;
-                SetColumnsSettings();
+                SetColumnsSettings(dataGridViewMain);
             }
             catch (Exception ex)
             {
                 ShowError(ex);
             }
         }
-        private void SetColumnsSettings()
+        private void SetColumnsSettings(DataGridView dgv)
         {
-            dataGridViewMain.Columns[0].Visible = false;
-            dataGridViewMain.Columns[1].HeaderText = "Название";
-            dataGridViewMain.Columns[2].HeaderText = "Тип";
-            dataGridViewMain.Columns[3].HeaderText = "Высота"; dataGridViewMain.Columns[2].Width = 63; //Заглушка
-            dataGridViewMain.Columns[4].HeaderText = "Ширина"; dataGridViewMain.Columns[3].Width = 63;
-            dataGridViewMain.Columns[5].HeaderText = "Глубина"; dataGridViewMain.Columns[4].Width = 63;
+            dgv.Columns[0].Visible = false;
+            dgv.Columns[1].HeaderText = "Название";
+            dgv.Columns[2].HeaderText = "Тип";
+            dgv.Columns[3].HeaderText = "Высота"; dgv.Columns[2].Width = 63; //Заглушка
+            dgv.Columns[4].HeaderText = "Ширина"; dgv.Columns[3].Width = 63;
+            dgv.Columns[5].HeaderText = "Глубина"; dgv.Columns[4].Width = 63;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -56,12 +57,12 @@ namespace DefectsDMS
         /// <summary>
         /// Загрузка картинки из БД
         /// </summary>
-        /// <param name="value">Значение ID</param>
-        private void LoadPictureToPictureBox(string value)
+        /// <param name="idvalue">Значение ID</param>
+        private void LoadPictureToPictureBox(string idvalue)
         {
             try
             {
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(new SqlCommand("SELECT photo FROM photo_table WHERE photo_id = "+ value +"", sqlCon));
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(new SqlCommand("SELECT photo FROM photo_table WHERE photo_id = "+ idvalue +"", sqlCon));
                 DataSet dataSet = new DataSet();
                 dataAdapter.Fill(dataSet);
                 
@@ -88,6 +89,48 @@ namespace DefectsDMS
         {
             if(dataGridViewMain.SelectedCells.Count >= 1)
             LoadPictureToPictureBox(dataGridViewMain[0, dataGridViewMain.SelectedCells[0].RowIndex].Value.ToString());
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (toolStripLabel3.Text == null || toolStripLabel3.Text == "")
+                return;
+            dataGridViewSec.ColumnCount = dataGridViewMain.ColumnCount;
+            dataGridViewSec.RowCount = 1;
+            dataGridViewSec.Columns[0].Visible = false;
+            for (int i = 0; i < dataGridViewMain.RowCount; i++)
+            {
+                for (int j = 1; j < dataGridViewMain.ColumnCount; j++)
+                {
+                    if (dataGridViewMain[j, i].Value.ToString().Contains(toolStripTextBox1.Text))
+                    {                        
+                        for (int k = 1; k < dataGridViewMain.ColumnCount; k++)
+                        {
+                            dataGridViewSec[k, dataGridViewSec.RowCount - 1].Value = dataGridViewMain[k, i].Value;  
+                        }
+                        dataGridViewSec.RowCount++;
+                        break;
+                    }
+                }
+            }
+            if (dataGridViewSec.RowCount == 1)
+            {
+                MessageBox.Show("Искомые данные отсутствуют в таблице.", "Ошибка", MessageBoxButtons.OK);
+                return;
+            }
+            dataGridViewMain.Visible = false; this.dataGridViewSec.Visible = true;
+            dataGridViewSec.RowCount--;
+            for (int i = 1; i < 6; i++)
+            {
+                dataGridViewSec.Columns[i].HeaderText = dataGridViewMain.Columns[i].HeaderText;
+            }
+            SetColumnsSettings(dataGridViewSec);
+        }
+
+        private void toolStripLabel3_Click(object sender, EventArgs e)
+        {
+            dataGridViewSec.Visible = false; dataGridViewMain.Visible = true;
+            toolStripTextBox1.Text = "";
         }
     }
 }

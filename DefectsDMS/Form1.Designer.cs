@@ -42,13 +42,15 @@ namespace DefectsDMS
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.dataGridViewSec = new System.Windows.Forms.DataGridView();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSec)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -143,12 +145,12 @@ namespace DefectsDMS
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
-            this.toolStripComboBox1,
-            this.toolStripLabel2,
-            this.toolStripLabel3});
+            this.toolStripTextBox1,
+            this.toolStripLabel3,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1081, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1081, 26);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -157,22 +159,8 @@ namespace DefectsDMS
             this.toolStripLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripLabel1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(74, 22);
-            this.toolStripLabel1.Text = "Фильтр:";
-            // 
-            // toolStripComboBox1
-            // 
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripLabel2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.toolStripLabel2.Size = new System.Drawing.Size(107, 22);
-            this.toolStripLabel2.Text = "Применить";
+            this.toolStripLabel1.Size = new System.Drawing.Size(65, 23);
+            this.toolStripLabel1.Text = "Поиск:";
             // 
             // toolStripLabel3
             // 
@@ -180,14 +168,46 @@ namespace DefectsDMS
             this.toolStripLabel3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripLabel3.Name = "toolStripLabel3";
             this.toolStripLabel3.Padding = new System.Windows.Forms.Padding(0, 0, 20, 0);
-            this.toolStripLabel3.Size = new System.Drawing.Size(153, 22);
+            this.toolStripLabel3.Size = new System.Drawing.Size(153, 23);
             this.toolStripLabel3.Text = "Сброс фильтра";
+            this.toolStripLabel3.Click += new System.EventHandler(this.toolStripLabel3_Click);
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 26);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::DefectsDMS.Properties.Resources.btnbg;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(96, 23);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // dataGridViewSec
+            // 
+            this.dataGridViewSec.AllowUserToAddRows = false;
+            this.dataGridViewSec.AllowUserToDeleteRows = false;
+            this.dataGridViewSec.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewSec.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSec.Location = new System.Drawing.Point(636, 52);
+            this.dataGridViewSec.Name = "dataGridViewSec";
+            this.dataGridViewSec.ReadOnly = true;
+            this.dataGridViewSec.Size = new System.Drawing.Size(433, 434);
+            this.dataGridViewSec.TabIndex = 4;
+            this.dataGridViewSec.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1081, 491);
+            this.Controls.Add(this.dataGridViewSec);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.pictureBoxMain);
             this.Controls.Add(this.dataGridViewMain);
@@ -203,6 +223,7 @@ namespace DefectsDMS
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSec)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,9 +244,10 @@ namespace DefectsDMS
         private System.Windows.Forms.PictureBox pictureBoxMain;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.DataGridView dataGridViewSec;
     }
 }
 
