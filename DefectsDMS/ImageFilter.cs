@@ -119,19 +119,19 @@ namespace DefectsDMS
             }
             private bool RoughlyEqual(Color color1, Color color2, int accuracy)
             {
-                if ((color1.R - accuracy <= color2.R) && (color1.R + accuracy >= color2.R))
+                if (!((color1.R - accuracy <= color2.R) && (color1.R + accuracy >= color2.R)))
                 {
-                    return true;
+                    return false;
                 }
-                if ((color1.G - accuracy <= color2.G) && (color1.G + accuracy >= color2.G))
+                if (!((color1.G - accuracy <= color2.G) && (color1.G + accuracy >= color2.G)))
                 {
-                    return true;
+                    return false;
                 }
-                if ((color1.B - accuracy <= color2.B) && (color1.B + accuracy >= color2.B))
+                if (!((color1.B - accuracy <= color2.B) && (color1.B + accuracy >= color2.B)))
                 {
-                    return true;
+                    return false;
                 }
-                return false;
+                return true;
             }
             private bool LeftAreasCheck(int accuracy, Bitmap bitmap, int x, int y)
             {
@@ -222,6 +222,12 @@ namespace DefectsDMS
                 public int CurentX;
                 public int CurentY;
             }
+            public static void RefreshClass()
+            {
+                MaxId = 0;
+                Colors = new List<Color>();
+                Areas = null;
+            }
             private Stack<LossCall> lossCalls = new Stack<LossCall>();
             private int callCount = 0;
             private const int MaxCallCount = 5000;
@@ -233,6 +239,7 @@ namespace DefectsDMS
         //Cегментация
         public Bitmap Segmentation( int accuracy)
         {
+            Area.RefreshClass();
             Bitmap resultBitmap = (Bitmap)Image;
             Area.Areas = new Area[resultBitmap.Width, resultBitmap.Height];
             for (int x = 0; x < resultBitmap.Width; x++)
@@ -267,6 +274,7 @@ namespace DefectsDMS
         //Сглаживание
         public Bitmap ImageSmoothing(int accuracy)
         {
+            Area.RefreshClass();
             Bitmap resultBitmap = (Bitmap)Image;
             Area.Areas = new Area[resultBitmap.Width, resultBitmap.Height];
             for (int x = 0; x < resultBitmap.Width; x++)
