@@ -31,8 +31,10 @@ namespace DefectsDMS
         {
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.показатьИтоговыйОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.создатьОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.показатьИтоговыйОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.содержаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +48,7 @@ namespace DefectsDMS
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewSec = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
@@ -67,12 +70,25 @@ namespace DefectsDMS
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.показатьИтоговыйОтчётToolStripMenuItem,
+            this.создатьОтчётToolStripMenuItem,
             this.toolStripMenuItem2,
+            this.показатьИтоговыйОтчётToolStripMenuItem,
+            this.toolStripMenuItem3,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // создатьОтчётToolStripMenuItem
+            // 
+            this.создатьОтчётToolStripMenuItem.Name = "создатьОтчётToolStripMenuItem";
+            this.создатьОтчётToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.создатьОтчётToolStripMenuItem.Text = "Создать отчёт";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(154, 6);
             // 
             // показатьИтоговыйОтчётToolStripMenuItem
             // 
@@ -80,10 +96,10 @@ namespace DefectsDMS
             this.показатьИтоговыйОтчётToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.показатьИтоговыйОтчётToolStripMenuItem.Text = "Показать отчёт";
             // 
-            // toolStripMenuItem2
+            // toolStripMenuItem3
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(154, 6);
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(154, 6);
             // 
             // выходToolStripMenuItem
             // 
@@ -130,11 +146,11 @@ namespace DefectsDMS
             this.dataGridViewMain.ReadOnly = true;
             this.dataGridViewMain.Size = new System.Drawing.Size(433, 434);
             this.dataGridViewMain.TabIndex = 1;
-            this.dataGridViewMain.SelectionChanged += new System.EventHandler(this.dataGridViewMain_SelectionChanged);
+            this.dataGridViewMain.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMain_CellClick);
             // 
             // pictureBoxMain
             // 
-            this.pictureBoxMain.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pictureBoxMain.BackColor = System.Drawing.Color.White;
             this.pictureBoxMain.Location = new System.Drawing.Point(259, 52);
             this.pictureBoxMain.Name = "pictureBoxMain";
             this.pictureBoxMain.Size = new System.Drawing.Size(371, 434);
@@ -159,14 +175,14 @@ namespace DefectsDMS
             this.toolStripLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripLabel1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(65, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(65, 23);
             this.toolStripLabel1.Text = "Поиск:";
             // 
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 25);
+            this.toolStripTextBox1.Size = new System.Drawing.Size(150, 26);
             // 
             // toolStripLabel3
             // 
@@ -174,8 +190,8 @@ namespace DefectsDMS
             this.toolStripLabel3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripLabel3.Name = "toolStripLabel3";
             this.toolStripLabel3.Padding = new System.Windows.Forms.Padding(0, 0, 20, 0);
-            this.toolStripLabel3.Size = new System.Drawing.Size(153, 22);
-            this.toolStripLabel3.Text = "Сброс фильтра";
+            this.toolStripLabel3.Size = new System.Drawing.Size(203, 23);
+            this.toolStripLabel3.Text = "Сброс строки поиска";
             this.toolStripLabel3.Click += new System.EventHandler(this.toolStripLabel3_Click);
             // 
             // toolStripButton1
@@ -201,12 +217,22 @@ namespace DefectsDMS
             this.dataGridViewSec.Size = new System.Drawing.Size(433, 434);
             this.dataGridViewSec.TabIndex = 4;
             this.dataGridViewSec.Visible = false;
+            this.dataGridViewSec.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSec_CellClick);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(12, 52);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(241, 434);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1081, 491);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridViewSec);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.pictureBoxMain);
@@ -248,6 +274,9 @@ namespace DefectsDMS
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.DataGridView dataGridViewSec;
+        private System.Windows.Forms.ToolStripMenuItem создатьОтчётToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

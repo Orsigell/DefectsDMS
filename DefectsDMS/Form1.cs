@@ -14,6 +14,7 @@ namespace DefectsDMS
 {
     public partial class Form1 : Form
     {
+        const string clear = "";
         SqlConnection sqlCon = null;
         SqlDataAdapter sqlAdapter = null;
         DataTable table = new DataTable();
@@ -84,17 +85,24 @@ namespace DefectsDMS
         /// Событие выбора ячейки dataGridViewMain
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridViewMain_SelectionChanged(object sender, EventArgs e)
+        /// <param name="e"></param> 
+        private void dataGridViewSec_CellClick(object sender, DataGridViewCellEventArgs e) //клик на поисковую таблицу
         {
-            if(dataGridViewMain.SelectedCells.Count >= 1)
-            LoadPictureToPictureBox(dataGridViewMain[0, dataGridViewMain.SelectedCells[0].RowIndex].Value.ToString());
+            if (dataGridViewSec.SelectedCells.Count >= 1)
+                LoadPictureToPictureBox(dataGridViewSec[0, dataGridViewSec.SelectedCells[0].RowIndex].Value.ToString());
         }
-
+        private void dataGridViewMain_CellClick(object sender, DataGridViewCellEventArgs e) //клик на основную таблицу
+        {
+            if (dataGridViewMain.SelectedCells.Count >= 1)
+                LoadPictureToPictureBox(dataGridViewMain[0, dataGridViewMain.SelectedCells[0].RowIndex].Value.ToString());
+        }
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (toolStripLabel3.Text == null || toolStripLabel3.Text == "")
+            if (toolStripTextBox1.Text == null || toolStripTextBox1.Text == clear) //сброс поисковика если поле пустое
+            {
+                ShowMainDGV();
                 return;
+            }
             dataGridViewSec.ColumnCount = dataGridViewMain.ColumnCount;
             dataGridViewSec.RowCount = 1;
             dataGridViewSec.Columns[0].Visible = false;
@@ -102,9 +110,9 @@ namespace DefectsDMS
             {
                 for (int j = 1; j < dataGridViewMain.ColumnCount; j++)
                 {
-                    if (dataGridViewMain[j, i].Value.ToString().Contains(toolStripTextBox1.Text))
+                    if (dataGridViewMain[j, i].Value.ToString().ToLower().Contains(toolStripTextBox1.Text.ToLower()))
                     {                        
-                        for (int k = 1; k < dataGridViewMain.ColumnCount; k++)
+                        for (int k = 0; k < dataGridViewMain.ColumnCount; k++)
                         {
                             dataGridViewSec[k, dataGridViewSec.RowCount - 1].Value = dataGridViewMain[k, i].Value;  
                         }
@@ -125,12 +133,17 @@ namespace DefectsDMS
                 dataGridViewSec.Columns[i].HeaderText = dataGridViewMain.Columns[i].HeaderText;
             }
             SetColumnsSettings(dataGridViewSec);
-        }
+        } //вызов процесса поиска по строке
 
         private void toolStripLabel3_Click(object sender, EventArgs e)
         {
+            ShowMainDGV();
+        } //Сброс поисковика по кнопке
+
+        private void ShowMainDGV()
+        {
             dataGridViewSec.Visible = false; dataGridViewMain.Visible = true;
-            toolStripTextBox1.Text = "";
+            toolStripTextBox1.Text = clear;
         }
     }
 }
