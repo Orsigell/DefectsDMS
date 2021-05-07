@@ -11,6 +11,7 @@ namespace DefectsDMS
 {
     public static class PDFCreator
     {
+        public const string filename = "tmp.pdf";
         public struct FilterResult
         {
             public FilterResult(string name, System.Drawing.Image image)
@@ -23,9 +24,9 @@ namespace DefectsDMS
         }
         public static void CreateDocument(params FilterResult[] image)
         {
-            File.Delete("tmpdf");
+            File.Delete(filename);
             Document pdf = new Document(new Rectangle(2000,1000), 10, 10, 50, 20);
-            PdfWriter.GetInstance(pdf, new FileStream($"tmpdf", FileMode.OpenOrCreate));
+            PdfWriter.GetInstance(pdf, new FileStream(filename, FileMode.OpenOrCreate));
             pdf.Open();
 
             string ttf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIAL.TTF");

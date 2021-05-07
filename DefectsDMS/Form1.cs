@@ -77,7 +77,7 @@ namespace DefectsDMS
                 ShowError(ex);
             }
         }
-        private void ProgramClose() { sqlCon.Close(); Application.Exit(); }
+        private void ProgramClose() { sqlCon.Close(); Application.Exit(); File.Delete(PDFCreator.filename); }
         private void выходToolStripMenuItem_Click(object sender, EventArgs e) => ProgramClose();    
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) => ProgramClose();
         private static void ShowError(Exception ex) => MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -223,6 +223,37 @@ namespace DefectsDMS
                 imageList.Add(new PDFCreator.FilterResult(checkBoxSmooth.Text, ImageFilter.ImageSmoothing(pictureBoxMain.Image, trackBarSmooth.Value)));
             }
             PDFCreator.CreateDocument(imageList.ToArray());
+            System.Diagnostics.Process.Start(PDFCreator.filename); //открытие файла
+        }
+
+        private void СохранитьОтчётToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(PDFCreator.filename))
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "PDF файлы (*.pdf)|*.pdf|Все файлы (*.*)|*.*";
+                saveFileDialog.Title = "Сохранить как файл PDF";
+                saveFileDialog.ShowDialog();
+                if (saveFileDialog.FileName != "")
+                {
+                    File.Copy(PDFCreator.filename, saveFileDialog.FileName, true);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не сформирован отчёт для сохранения", "Ошибка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void открытьОтчётToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(PDFCreator.filename))
+            {
+                System.Diagnostics.Process.Start(PDFCreator.filename);
+            }
+            else
+            {
+                MessageBox.Show("Ни один отчёт не был сформирован", "Ошибка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

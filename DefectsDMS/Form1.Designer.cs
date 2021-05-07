@@ -31,9 +31,9 @@ namespace DefectsDMS
         {
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.создатьОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.СохранитьОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.показатьИтоговыйОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +49,9 @@ namespace DefectsDMS
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewSec = new System.Windows.Forms.DataGridView();
             this.filterBox = new System.Windows.Forms.GroupBox();
+            this.confirmBtn = new System.Windows.Forms.Button();
+            this.labelSmooth = new System.Windows.Forms.Label();
+            this.labelSegment = new System.Windows.Forms.Label();
             this.trackBarSmooth = new System.Windows.Forms.TrackBar();
             this.L = new System.Windows.Forms.CheckBox();
             this.B = new System.Windows.Forms.CheckBox();
@@ -60,9 +63,6 @@ namespace DefectsDMS
             this.checkBox2Defect = new System.Windows.Forms.CheckBox();
             this.checkBox1Negative = new System.Windows.Forms.CheckBox();
             this.trackBarSegment = new System.Windows.Forms.TrackBar();
-            this.labelSegment = new System.Windows.Forms.Label();
-            this.labelSmooth = new System.Windows.Forms.Label();
-            this.confirmBtn = new System.Windows.Forms.Button();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
@@ -87,41 +87,43 @@ namespace DefectsDMS
             // файлToolStripMenuItem
             // 
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.создатьОтчётToolStripMenuItem,
+            this.СохранитьОтчётToolStripMenuItem,
             this.toolStripMenuItem2,
-            this.показатьИтоговыйОтчётToolStripMenuItem,
+            this.открытьОтчётToolStripMenuItem,
             this.toolStripMenuItem3,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
-            // создатьОтчётToolStripMenuItem
+            // СохранитьОтчётToolStripMenuItem
             // 
-            this.создатьОтчётToolStripMenuItem.Name = "создатьОтчётToolStripMenuItem";
-            this.создатьОтчётToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.создатьОтчётToolStripMenuItem.Text = "Создать отчёт";
+            this.СохранитьОтчётToolStripMenuItem.Name = "СохранитьОтчётToolStripMenuItem";
+            this.СохранитьОтчётToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.СохранитьОтчётToolStripMenuItem.Text = "Сохранить отчёт";
+            this.СохранитьОтчётToolStripMenuItem.Click += new System.EventHandler(this.СохранитьОтчётToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(154, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
-            // показатьИтоговыйОтчётToolStripMenuItem
+            // открытьОтчётToolStripMenuItem
             // 
-            this.показатьИтоговыйОтчётToolStripMenuItem.Name = "показатьИтоговыйОтчётToolStripMenuItem";
-            this.показатьИтоговыйОтчётToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.показатьИтоговыйОтчётToolStripMenuItem.Text = "Показать отчёт";
+            this.открытьОтчётToolStripMenuItem.Name = "открытьОтчётToolStripMenuItem";
+            this.открытьОтчётToolStripMenuItem.Size = new System.Drawing.Size(217, 22);
+            this.открытьОтчётToolStripMenuItem.Text = "Открыть последний отчёт";
+            this.открытьОтчётToolStripMenuItem.Click += new System.EventHandler(this.открытьОтчётToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(154, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -258,10 +260,41 @@ namespace DefectsDMS
             this.filterBox.TabIndex = 5;
             this.filterBox.TabStop = false;
             // 
+            // confirmBtn
+            // 
+            this.confirmBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.confirmBtn.Location = new System.Drawing.Point(6, 392);
+            this.confirmBtn.Name = "confirmBtn";
+            this.confirmBtn.Size = new System.Drawing.Size(228, 35);
+            this.confirmBtn.TabIndex = 21;
+            this.confirmBtn.Text = "Применить";
+            this.confirmBtn.UseVisualStyleBackColor = true;
+            this.confirmBtn.Click += new System.EventHandler(this.confirmBtn_Click);
+            // 
+            // labelSmooth
+            // 
+            this.labelSmooth.AutoSize = true;
+            this.labelSmooth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSmooth.Location = new System.Drawing.Point(210, 271);
+            this.labelSmooth.Name = "labelSmooth";
+            this.labelSmooth.Size = new System.Drawing.Size(15, 16);
+            this.labelSmooth.TabIndex = 20;
+            this.labelSmooth.Text = "0";
+            // 
+            // labelSegment
+            // 
+            this.labelSegment.AutoSize = true;
+            this.labelSegment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSegment.Location = new System.Drawing.Point(210, 194);
+            this.labelSegment.Name = "labelSegment";
+            this.labelSegment.Size = new System.Drawing.Size(15, 16);
+            this.labelSegment.TabIndex = 19;
+            this.labelSegment.Text = "0";
+            // 
             // trackBarSmooth
             // 
             this.trackBarSmooth.Location = new System.Drawing.Point(6, 303);
-            this.trackBarSmooth.Maximum = 250;
+            this.trackBarSmooth.Maximum = 256;
             this.trackBarSmooth.Name = "trackBarSmooth";
             this.trackBarSmooth.Size = new System.Drawing.Size(231, 45);
             this.trackBarSmooth.TabIndex = 18;
@@ -375,43 +408,12 @@ namespace DefectsDMS
             // trackBarSegment
             // 
             this.trackBarSegment.Location = new System.Drawing.Point(6, 223);
-            this.trackBarSegment.Maximum = 250;
+            this.trackBarSegment.Maximum = 256;
             this.trackBarSegment.Name = "trackBarSegment";
             this.trackBarSegment.Size = new System.Drawing.Size(229, 45);
             this.trackBarSegment.TabIndex = 18;
             this.trackBarSegment.TickFrequency = 18;
             this.trackBarSegment.ValueChanged += new System.EventHandler(this.trackBarSegment_ValueChanged);
-            // 
-            // labelSegment
-            // 
-            this.labelSegment.AutoSize = true;
-            this.labelSegment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSegment.Location = new System.Drawing.Point(210, 194);
-            this.labelSegment.Name = "labelSegment";
-            this.labelSegment.Size = new System.Drawing.Size(15, 16);
-            this.labelSegment.TabIndex = 19;
-            this.labelSegment.Text = "0";
-            // 
-            // labelSmooth
-            // 
-            this.labelSmooth.AutoSize = true;
-            this.labelSmooth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSmooth.Location = new System.Drawing.Point(210, 271);
-            this.labelSmooth.Name = "labelSmooth";
-            this.labelSmooth.Size = new System.Drawing.Size(15, 16);
-            this.labelSmooth.TabIndex = 20;
-            this.labelSmooth.Text = "0";
-            // 
-            // confirmBtn
-            // 
-            this.confirmBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.confirmBtn.Location = new System.Drawing.Point(6, 392);
-            this.confirmBtn.Name = "confirmBtn";
-            this.confirmBtn.Size = new System.Drawing.Size(228, 35);
-            this.confirmBtn.TabIndex = 21;
-            this.confirmBtn.Text = "Применить";
-            this.confirmBtn.UseVisualStyleBackColor = true;
-            this.confirmBtn.Click += new System.EventHandler(this.confirmBtn_Click);
             // 
             // Form1
             // 
@@ -449,7 +451,7 @@ namespace DefectsDMS
 
         private System.Windows.Forms.MenuStrip mainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem показатьИтоговыйОтчётToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem открытьОтчётToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
@@ -464,7 +466,7 @@ namespace DefectsDMS
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.DataGridView dataGridViewSec;
-        private System.Windows.Forms.ToolStripMenuItem создатьОтчётToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem СохранитьОтчётToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.GroupBox filterBox;
         private System.Windows.Forms.TrackBar trackBarSegment;
