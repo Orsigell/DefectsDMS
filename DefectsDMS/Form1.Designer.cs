@@ -48,12 +48,29 @@ namespace DefectsDMS
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewSec = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.filterBox = new System.Windows.Forms.GroupBox();
+            this.trackBarSmooth = new System.Windows.Forms.TrackBar();
+            this.L = new System.Windows.Forms.CheckBox();
+            this.B = new System.Windows.Forms.CheckBox();
+            this.G = new System.Windows.Forms.CheckBox();
+            this.R = new System.Windows.Forms.CheckBox();
+            this.checkBoxSmooth = new System.Windows.Forms.CheckBox();
+            this.checkBoxSegment = new System.Windows.Forms.CheckBox();
+            this.checkBox3Histo = new System.Windows.Forms.CheckBox();
+            this.checkBox2Defect = new System.Windows.Forms.CheckBox();
+            this.checkBox1Negative = new System.Windows.Forms.CheckBox();
+            this.trackBarSegment = new System.Windows.Forms.TrackBar();
+            this.labelSegment = new System.Windows.Forms.Label();
+            this.labelSmooth = new System.Windows.Forms.Label();
+            this.confirmBtn = new System.Windows.Forms.Button();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSec)).BeginInit();
+            this.filterBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSmooth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -219,20 +236,189 @@ namespace DefectsDMS
             this.dataGridViewSec.Visible = false;
             this.dataGridViewSec.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSec_CellClick);
             // 
-            // groupBox1
+            // filterBox
             // 
-            this.groupBox1.Location = new System.Drawing.Point(12, 52);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(241, 434);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
+            this.filterBox.Controls.Add(this.confirmBtn);
+            this.filterBox.Controls.Add(this.labelSmooth);
+            this.filterBox.Controls.Add(this.labelSegment);
+            this.filterBox.Controls.Add(this.trackBarSmooth);
+            this.filterBox.Controls.Add(this.L);
+            this.filterBox.Controls.Add(this.B);
+            this.filterBox.Controls.Add(this.G);
+            this.filterBox.Controls.Add(this.R);
+            this.filterBox.Controls.Add(this.checkBoxSmooth);
+            this.filterBox.Controls.Add(this.checkBoxSegment);
+            this.filterBox.Controls.Add(this.checkBox3Histo);
+            this.filterBox.Controls.Add(this.checkBox2Defect);
+            this.filterBox.Controls.Add(this.checkBox1Negative);
+            this.filterBox.Controls.Add(this.trackBarSegment);
+            this.filterBox.Location = new System.Drawing.Point(12, 52);
+            this.filterBox.Name = "filterBox";
+            this.filterBox.Size = new System.Drawing.Size(241, 434);
+            this.filterBox.TabIndex = 5;
+            this.filterBox.TabStop = false;
+            // 
+            // trackBarSmooth
+            // 
+            this.trackBarSmooth.Location = new System.Drawing.Point(6, 303);
+            this.trackBarSmooth.Maximum = 250;
+            this.trackBarSmooth.Name = "trackBarSmooth";
+            this.trackBarSmooth.Size = new System.Drawing.Size(231, 45);
+            this.trackBarSmooth.TabIndex = 18;
+            this.trackBarSmooth.TickFrequency = 18;
+            this.trackBarSmooth.ValueChanged += new System.EventHandler(this.trackBarSmooth_ValueChanged);
+            // 
+            // L
+            // 
+            this.L.AutoSize = true;
+            this.L.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.L.Location = new System.Drawing.Point(134, 147);
+            this.L.Name = "L";
+            this.L.Size = new System.Drawing.Size(34, 20);
+            this.L.TabIndex = 17;
+            this.L.Text = "L";
+            this.L.UseVisualStyleBackColor = true;
+            this.L.Visible = false;
+            // 
+            // B
+            // 
+            this.B.AutoSize = true;
+            this.B.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.B.Location = new System.Drawing.Point(92, 147);
+            this.B.Name = "B";
+            this.B.Size = new System.Drawing.Size(36, 20);
+            this.B.TabIndex = 16;
+            this.B.Text = "B";
+            this.B.UseVisualStyleBackColor = true;
+            this.B.Visible = false;
+            // 
+            // G
+            // 
+            this.G.AutoSize = true;
+            this.G.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.G.Location = new System.Drawing.Point(49, 147);
+            this.G.Name = "G";
+            this.G.Size = new System.Drawing.Size(37, 20);
+            this.G.TabIndex = 15;
+            this.G.Text = "G";
+            this.G.UseVisualStyleBackColor = true;
+            this.G.Visible = false;
+            // 
+            // R
+            // 
+            this.R.AutoSize = true;
+            this.R.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.R.Location = new System.Drawing.Point(6, 147);
+            this.R.Name = "R";
+            this.R.Size = new System.Drawing.Size(37, 20);
+            this.R.TabIndex = 14;
+            this.R.Text = "R";
+            this.R.UseVisualStyleBackColor = true;
+            this.R.Visible = false;
+            // 
+            // checkBoxSmooth
+            // 
+            this.checkBoxSmooth.AutoSize = true;
+            this.checkBoxSmooth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBoxSmooth.Location = new System.Drawing.Point(6, 267);
+            this.checkBoxSmooth.Name = "checkBoxSmooth";
+            this.checkBoxSmooth.Size = new System.Drawing.Size(133, 20);
+            this.checkBoxSmooth.TabIndex = 13;
+            this.checkBoxSmooth.Text = "Сглаживание (?)";
+            this.checkBoxSmooth.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxSegment
+            // 
+            this.checkBoxSegment.AutoSize = true;
+            this.checkBoxSegment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBoxSegment.Location = new System.Drawing.Point(4, 193);
+            this.checkBoxSegment.Name = "checkBoxSegment";
+            this.checkBoxSegment.Size = new System.Drawing.Size(113, 20);
+            this.checkBoxSegment.TabIndex = 12;
+            this.checkBoxSegment.Text = "Сегментация";
+            this.checkBoxSegment.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3Histo
+            // 
+            this.checkBox3Histo.AutoSize = true;
+            this.checkBox3Histo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox3Histo.Location = new System.Drawing.Point(4, 115);
+            this.checkBox3Histo.Name = "checkBox3Histo";
+            this.checkBox3Histo.Size = new System.Drawing.Size(112, 20);
+            this.checkBox3Histo.TabIndex = 11;
+            this.checkBox3Histo.Text = "Гистограмма";
+            this.checkBox3Histo.UseVisualStyleBackColor = true;
+            this.checkBox3Histo.CheckedChanged += new System.EventHandler(this.checkBox3Histo_CheckedChanged);
+            // 
+            // checkBox2Defect
+            // 
+            this.checkBox2Defect.AutoSize = true;
+            this.checkBox2Defect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox2Defect.Location = new System.Drawing.Point(4, 63);
+            this.checkBox2Defect.Name = "checkBox2Defect";
+            this.checkBox2Defect.Size = new System.Drawing.Size(221, 20);
+            this.checkBox2Defect.TabIndex = 10;
+            this.checkBox2Defect.Text = "Выделение дефекта (Опасно)";
+            this.checkBox2Defect.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1Negative
+            // 
+            this.checkBox1Negative.AutoSize = true;
+            this.checkBox1Negative.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBox1Negative.Location = new System.Drawing.Point(4, 19);
+            this.checkBox1Negative.Name = "checkBox1Negative";
+            this.checkBox1Negative.Size = new System.Drawing.Size(82, 20);
+            this.checkBox1Negative.TabIndex = 6;
+            this.checkBox1Negative.Text = "Негатив";
+            this.checkBox1Negative.UseVisualStyleBackColor = true;
+            // 
+            // trackBarSegment
+            // 
+            this.trackBarSegment.Location = new System.Drawing.Point(6, 223);
+            this.trackBarSegment.Maximum = 250;
+            this.trackBarSegment.Name = "trackBarSegment";
+            this.trackBarSegment.Size = new System.Drawing.Size(229, 45);
+            this.trackBarSegment.TabIndex = 18;
+            this.trackBarSegment.TickFrequency = 18;
+            this.trackBarSegment.ValueChanged += new System.EventHandler(this.trackBarSegment_ValueChanged);
+            // 
+            // labelSegment
+            // 
+            this.labelSegment.AutoSize = true;
+            this.labelSegment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSegment.Location = new System.Drawing.Point(210, 194);
+            this.labelSegment.Name = "labelSegment";
+            this.labelSegment.Size = new System.Drawing.Size(15, 16);
+            this.labelSegment.TabIndex = 19;
+            this.labelSegment.Text = "0";
+            // 
+            // labelSmooth
+            // 
+            this.labelSmooth.AutoSize = true;
+            this.labelSmooth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSmooth.Location = new System.Drawing.Point(210, 271);
+            this.labelSmooth.Name = "labelSmooth";
+            this.labelSmooth.Size = new System.Drawing.Size(15, 16);
+            this.labelSmooth.TabIndex = 20;
+            this.labelSmooth.Text = "0";
+            // 
+            // confirmBtn
+            // 
+            this.confirmBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.confirmBtn.Location = new System.Drawing.Point(6, 392);
+            this.confirmBtn.Name = "confirmBtn";
+            this.confirmBtn.Size = new System.Drawing.Size(228, 35);
+            this.confirmBtn.TabIndex = 21;
+            this.confirmBtn.Text = "Применить";
+            this.confirmBtn.UseVisualStyleBackColor = true;
+            this.confirmBtn.Click += new System.EventHandler(this.confirmBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1081, 491);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.filterBox);
             this.Controls.Add(this.dataGridViewSec);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.pictureBoxMain);
@@ -250,6 +436,10 @@ namespace DefectsDMS
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSec)).EndInit();
+            this.filterBox.ResumeLayout(false);
+            this.filterBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSmooth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,7 +466,21 @@ namespace DefectsDMS
         private System.Windows.Forms.DataGridView dataGridViewSec;
         private System.Windows.Forms.ToolStripMenuItem создатьОтчётToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox filterBox;
+        private System.Windows.Forms.TrackBar trackBarSegment;
+        private System.Windows.Forms.CheckBox checkBoxSmooth;
+        private System.Windows.Forms.CheckBox checkBoxSegment;
+        private System.Windows.Forms.CheckBox checkBox3Histo;
+        private System.Windows.Forms.CheckBox checkBox2Defect;
+        private System.Windows.Forms.CheckBox checkBox1Negative;
+        private System.Windows.Forms.CheckBox L;
+        private System.Windows.Forms.CheckBox B;
+        private System.Windows.Forms.CheckBox G;
+        private System.Windows.Forms.CheckBox R;
+        private System.Windows.Forms.TrackBar trackBarSmooth;
+        private System.Windows.Forms.Label labelSmooth;
+        private System.Windows.Forms.Label labelSegment;
+        private System.Windows.Forms.Button confirmBtn;
     }
 }
 

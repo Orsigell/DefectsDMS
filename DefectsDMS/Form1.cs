@@ -15,10 +15,10 @@ namespace DefectsDMS
     public partial class Form1 : Form
     {
         const string clear = "";
+        string photoName;
         SqlConnection sqlCon = null;
         SqlDataAdapter sqlAdapter = null;
         DataTable table = new DataTable();
-         
         public Form1()
         {
             InitializeComponent();
@@ -70,7 +70,7 @@ namespace DefectsDMS
                 Byte[] data = new Byte[0];
                 data = (Byte[])(dataSet.Tables[0].Rows[0]["photo"]);
                 MemoryStream mem = new MemoryStream(data);
-                pictureBoxMain.Image = Image.FromStream(mem);                
+                pictureBoxMain.Image = Image.FromStream(mem);
             }
             catch(Exception ex)
             {
@@ -88,13 +88,21 @@ namespace DefectsDMS
         /// <param name="e"></param> 
         private void dataGridViewSec_CellClick(object sender, DataGridViewCellEventArgs e) //клик на поисковую таблицу
         {
+            dataGridViewMain.ClearSelection();
             if (dataGridViewSec.SelectedCells.Count >= 1)
+            {
                 LoadPictureToPictureBox(dataGridViewSec[0, dataGridViewSec.SelectedCells[0].RowIndex].Value.ToString());
+                photoName = dataGridViewSec[1, dataGridViewSec.SelectedCells[0].RowIndex].Value.ToString();
+            }
         }
         private void dataGridViewMain_CellClick(object sender, DataGridViewCellEventArgs e) //клик на основную таблицу
         {
+            dataGridViewSec.ClearSelection();
             if (dataGridViewMain.SelectedCells.Count >= 1)
+            {
                 LoadPictureToPictureBox(dataGridViewMain[0, dataGridViewMain.SelectedCells[0].RowIndex].Value.ToString());
+                photoName = dataGridViewMain[1, dataGridViewMain.SelectedCells[0].RowIndex].Value.ToString();
+            }
         }
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
@@ -144,6 +152,76 @@ namespace DefectsDMS
         {
             dataGridViewSec.Visible = false; dataGridViewMain.Visible = true;
             toolStripTextBox1.Text = clear;
+        }
+
+        private void trackBarSegment_ValueChanged(object sender, EventArgs e)
+        {
+            labelSegment.Text = trackBarSegment.Value.ToString();
+        } //trackbar1
+
+        private void trackBarSmooth_ValueChanged(object sender, EventArgs e)
+        {
+            labelSmooth.Text = trackBarSmooth.Value.ToString();
+        } //trackbar2
+
+        private void checkBox3Histo_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox3Histo.Checked)
+            {
+                R.Visible = true; G.Visible = true; B.Visible = true; L.Visible = true;
+            }
+            else
+            {
+                R.Checked = false; G.Checked = false; B.Checked = false; L.Checked = false;
+                R.Visible = false; G.Visible = false; B.Visible = false; L.Visible = false;
+            }
+        }
+
+        private void confirmBtn_Click(object sender, EventArgs e)
+        {
+            if(pictureBoxMain.Image == null)
+            {
+                MessageBox.Show("Выберите изображение из таблицы", "Изображение не выбрано", MessageBoxButtons.OK);
+                return;
+            }
+            List <PDFCreator.FilterResult> imageList = new List<PDFCreator.FilterResult>();
+            if(checkBox1Negative.Checked)
+            {
+                imageList.Add(new PDFCreator.FilterResult(checkBox1Negative.Text,ImageFilter.Negative(pictureBoxMain.Image)));
+            }
+            if(checkBox2Defect.Checked)
+            {
+                imageList.Add(new PDFCreator.FilterResult(checkBox2Defect.Text, ImageFilter.HighlightingDefect(pictureBoxMain.Image)));
+            }
+            if(checkBox3Histo.Checked)
+            {
+                ImageFilter.HistogramsRGBL hist = ImageFilter.BarGraph(pictureBoxMain.Image, 1300, 600);
+                if(R.Checked)
+                {
+                    imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.RedHistogram));
+                }
+                if (G.Checked)
+                {
+                    imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.GreenHistogram));
+                }
+                if (B.Checked)
+                {
+                    imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.BlueHistogram));
+                }
+                if (L.Checked)
+                {
+                    imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.LumHistogram));
+                }
+            }
+            if(checkBoxSegment.Checked)
+            {
+                imageList.Add(new PDFCreator.FilterResult(checkBoxSegment.Text, ImageFilter.Segmentation(pictureBoxMain.Image, trackBarSegment.Value)));
+            }
+            if(checkBoxSmooth.Checked)
+            {
+                imageList.Add(new PDFCreator.FilterResult(checkBoxSmooth.Text, ImageFilter.ImageSmoothing(pictureBoxMain.Image, trackBarSmooth.Value)));
+            }
+            PDFCreator.CreateDocument(photoName, imageList.ToArray());
         }
     }
 }

@@ -9,11 +9,8 @@ using System.Threading.Tasks;
 
 namespace DefectsDMS
 {
-    public class ImageFilter
+     public static class ImageFilter
     {
-        private Image image;
-
-        public Image Image { get => image; set => image = value; }
         //Структура гистограмм
         public struct HistogramsRGBL
         {
@@ -22,12 +19,12 @@ namespace DefectsDMS
             public Image BlueHistogram;
             public Image LumHistogram;
         }
-        private double Lum(int r, int g, int b)
+        private static double Lum(int r, int g, int b)
         {
             return 0.3 * r + 0.59 * g + 0.11 * b;
         }
         //Гистограмма
-        public HistogramsRGBL BarGraph(int sizeX, int sizeY)
+        public static HistogramsRGBL BarGraph(Image image, int sizeX, int sizeY)
         {
             Bitmap bitmap = (Bitmap)image;
             int[] redArr = new int[256];
@@ -65,13 +62,9 @@ namespace DefectsDMS
             }
             return resultBitmap;
         }
-        //Фильтрация
-        public Image Filtration()
-        {
-            return null;
-        }
+        
         //Выделение дефета
-        public Image HighlightingDefect()
+        public static Image HighlightingDefect(Image image)
         {
             MemoryStream memoryStream = new MemoryStream();
             image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
@@ -94,7 +87,7 @@ namespace DefectsDMS
                 }
                 else
                 {
-                    throw new Exception("Не удалось провести выделение дфекта");
+                    throw new Exception("Не удалось провести выделение дефекта");
                 }
             }
         }
@@ -237,10 +230,10 @@ namespace DefectsDMS
             public static Area[,] Areas;
         }
         //Cегментация
-        public Bitmap Segmentation( int accuracy)
+        public static Bitmap Segmentation(Image image, int accuracy)
         {
             Area.RefreshClass();
-            Bitmap resultBitmap = (Bitmap)Image;
+            Bitmap resultBitmap = (Bitmap)image;
             Area.Areas = new Area[resultBitmap.Width, resultBitmap.Height];
             for (int x = 0; x < resultBitmap.Width; x++)
             {
@@ -272,10 +265,10 @@ namespace DefectsDMS
             return resultBitmap;
         }
         //Сглаживание
-        public Bitmap ImageSmoothing(int accuracy)
+        public static Bitmap ImageSmoothing(Image image, int accuracy)
         {
             Area.RefreshClass();
-            Bitmap resultBitmap = (Bitmap)Image;
+            Bitmap resultBitmap = (Bitmap)image;
             Area.Areas = new Area[resultBitmap.Width, resultBitmap.Height];
             for (int x = 0; x < resultBitmap.Width; x++)
             {
@@ -299,14 +292,14 @@ namespace DefectsDMS
             }
             return resultBitmap;
         }
-        private Color NegativeColor(Color color)
+        private static Color NegativeColor(Color color)
         {
             return Color.FromArgb(255 - color.R, 255 - color.G, 255 - color.B);
         }
         //Негатив
-        public Image Negative()
+        public static Image Negative(Image image)
         {
-            Bitmap resultImage = (Bitmap)Image;
+            Bitmap resultImage = (Bitmap)image;
             for (int x = 0; x < resultImage.Width; x++)
             {
                 for (int y = 0; y < resultImage.Height; y++)

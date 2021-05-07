@@ -21,10 +21,11 @@ namespace DefectsDMS
             public string Name;
             public System.Drawing.Image Image;
         }
-        public static void CreateDocument(string reportName, params FilterResult[] image)
+        public static void CreateDocument(string name, params FilterResult[] image)
         {
+            File.Delete("tmpdf");
             Document pdf = new Document(PageSize.A3, 10, 10, 50, 20);
-            PdfWriter.GetInstance(pdf, new FileStream($"{reportName}.pdf", FileMode.OpenOrCreate));
+            PdfWriter.GetInstance(pdf, new FileStream($"tmpdf", FileMode.OpenOrCreate));
             pdf.Open();
 
             string ttf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "ARIAL.TTF");

@@ -91,6 +91,13 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
+    <None Include="packages\BouncyCastle.1.8.6.1\.signature.p7s" />
+    <None Include="packages\BouncyCastle.1.8.6.1\BouncyCastle.1.8.6.1.nupkg" />
+    <None Include="packages\BouncyCastle.1.8.6.1\README.md" />
+    <None Include="packages\iTextSharp.5.5.13.2\.signature.p7s" />
+    <None Include="packages\iTextSharp.5.5.13.2\gnu-agpl-v3.0.md" />
+    <None Include="packages\iTextSharp.5.5.13.2\iTextSharp.5.5.13.2.nupkg" />
+    <None Include="packages\iTextSharp.5.5.13.2\LICENSE.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -105,6 +112,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll" />
+    <Content Include="packages\iTextSharp.5.5.13.2\lib\itextsharp.dll" />
+    <Content Include="packages\iTextSharp.5.5.13.2\lib\iTextSharp.xml" />
+    <Content Include="packages\iTextSharp.5.5.13.2\notice.txt" />
     <None Include="bin\Debug\Backgrounds\btnbg.png" />
     <None Include="btnbg.png" />
     <Content Include="Database.mdf">
