@@ -21,10 +21,10 @@ namespace DefectsDMS
             public string Name;
             public System.Drawing.Image Image;
         }
-        public static void CreateDocument(string name, params FilterResult[] image)
+        public static void CreateDocument(params FilterResult[] image)
         {
             File.Delete("tmpdf");
-            Document pdf = new Document(PageSize.A3, 10, 10, 50, 20);
+            Document pdf = new Document(new Rectangle(2000,1000), 10, 10, 50, 20);
             PdfWriter.GetInstance(pdf, new FileStream($"tmpdf", FileMode.OpenOrCreate));
             pdf.Open();
 
@@ -42,8 +42,10 @@ namespace DefectsDMS
                 PdfPCell cell = new PdfPCell(new Phrase(new Phrase(image[i].Name, font)));
                 table.AddCell(cell);
                 Image png = Image.GetInstance(image[i].Image, BaseColor.LIGHT_GRAY);
-                png.ScalePercent(40f);
-                cell = new PdfPCell(png);
+                png.ScalePercent(80f);
+                png.SpacingBefore = 3;
+                png.SpacingAfter = 3;
+                cell = new PdfPCell(png, false);
                 table.AddCell(cell);
             }
             pdf.Add(table);

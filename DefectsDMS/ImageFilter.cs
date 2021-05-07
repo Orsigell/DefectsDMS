@@ -26,7 +26,7 @@ namespace DefectsDMS
         //Гистограмма
         public static HistogramsRGBL BarGraph(Image image, int sizeX, int sizeY)
         {
-            Bitmap bitmap = (Bitmap)image;
+            Bitmap bitmap = (Bitmap)image.Clone();
             int[] redArr = new int[256];
             int[] greenArr = new int[256];
             int[] blueArr = new int[256];
@@ -233,7 +233,7 @@ namespace DefectsDMS
         public static Bitmap Segmentation(Image image, int accuracy)
         {
             Area.RefreshClass();
-            Bitmap resultBitmap = (Bitmap)image;
+            Bitmap resultBitmap = (Bitmap)image.Clone();
             Area.Areas = new Area[resultBitmap.Width, resultBitmap.Height];
             for (int x = 0; x < resultBitmap.Width; x++)
             {
@@ -268,7 +268,7 @@ namespace DefectsDMS
         public static Bitmap ImageSmoothing(Image image, int accuracy)
         {
             Area.RefreshClass();
-            Bitmap resultBitmap = (Bitmap)image;
+            Bitmap resultBitmap = (Bitmap)image.Clone();
             Area.Areas = new Area[resultBitmap.Width, resultBitmap.Height];
             for (int x = 0; x < resultBitmap.Width; x++)
             {
@@ -299,7 +299,7 @@ namespace DefectsDMS
         //Негатив
         public static Image Negative(Image image)
         {
-            Bitmap resultImage = (Bitmap)image;
+            Bitmap resultImage = (Bitmap)image.Clone();
             for (int x = 0; x < resultImage.Width; x++)
             {
                 for (int y = 0; y < resultImage.Height; y++)

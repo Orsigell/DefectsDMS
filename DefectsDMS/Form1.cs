@@ -185,6 +185,7 @@ namespace DefectsDMS
                 return;
             }
             List <PDFCreator.FilterResult> imageList = new List<PDFCreator.FilterResult>();
+            imageList.Add(new PDFCreator.FilterResult(photoName, pictureBoxMain.Image));
             if(checkBox1Negative.Checked)
             {
                 imageList.Add(new PDFCreator.FilterResult(checkBox1Negative.Text,ImageFilter.Negative(pictureBoxMain.Image)));
@@ -195,7 +196,7 @@ namespace DefectsDMS
             }
             if(checkBox3Histo.Checked)
             {
-                ImageFilter.HistogramsRGBL hist = ImageFilter.BarGraph(pictureBoxMain.Image, 1300, 600);
+                ImageFilter.HistogramsRGBL hist = ImageFilter.BarGraph(pictureBoxMain.Image, 1600, 100);
                 if(R.Checked)
                 {
                     imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.RedHistogram));
@@ -221,7 +222,7 @@ namespace DefectsDMS
             {
                 imageList.Add(new PDFCreator.FilterResult(checkBoxSmooth.Text, ImageFilter.ImageSmoothing(pictureBoxMain.Image, trackBarSmooth.Value)));
             }
-            PDFCreator.CreateDocument(photoName, imageList.ToArray());
+            PDFCreator.CreateDocument(imageList.ToArray());
         }
     }
 }
