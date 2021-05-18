@@ -222,6 +222,10 @@ namespace DefectsDMS
             {
                 imageList.Add(new PDFCreator.FilterResult(checkBoxSmooth.Text, ImageFilter.ImageSmoothing(pictureBoxMain.Image, trackBarSmooth.Value)));
             }
+            if (gaussianBlurCheckBox.Checked)
+            {
+                imageList.Add(new PDFCreator.FilterResult(gaussianBlurCheckBox.Text, ImageFilter.GaussianBlur(pictureBoxMain.Image)));
+            }
             PDFCreator.CreateDocument(imageList.ToArray());
             System.Diagnostics.Process.Start(PDFCreator.filename); //открытие файла
         }
