@@ -12,15 +12,16 @@ using System.IO;
 
 namespace DefectsDMS
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         const string clear = "";
         string photoName;
         SqlConnection sqlCon = null;
         SqlDataAdapter sqlAdapter = null;
         DataTable table = new DataTable();
-        public Form1()
-        {
+        const int columnsCount = 5;
+        public MainForm()
+        {          
             InitializeComponent();
         }
         private void GetDataFromDB(string command)
@@ -43,17 +44,17 @@ namespace DefectsDMS
             dgv.Columns[0].Visible = false;
             dgv.Columns[1].HeaderText = "Название";
             dgv.Columns[2].HeaderText = "Тип";
-            dgv.Columns[3].HeaderText = "Высота"; dgv.Columns[2].Width = 63; //Заглушка
-            dgv.Columns[4].HeaderText = "Ширина"; dgv.Columns[3].Width = 63;
-            dgv.Columns[5].HeaderText = "Глубина"; dgv.Columns[4].Width = 63;
+            dgv.Columns[3].HeaderText = "Описание"; dgv.Columns[2].Width = 153; //Заглушка
+            //dgv.Columns[4].HeaderText = "Ширина"; dgv.Columns[3].Width = 63;
+            //dgv.Columns[5].HeaderText = "Глубина"; dgv.Columns[4].Width = 63;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True");
             sqlCon.Open();
 
-            GetDataFromDB("SELECT photo_id, photo_name, type, heigh, width, depth FROM photo_table, type_table, characteristics_table WHERE " +
-                "type_table.type_id = photo_table.type_id AND characteristics_table.characteristics_id = photo_table.characteristics_id");
+            GetDataFromDB("SELECT photo_id, photo_name, type, description FROM photo_table, type_table WHERE " +
+                "type_table.type_id = photo_table.type_id"); // AND characteristics_table.characteristics_id = photo_table.characteristics_id
         }
         /// <summary>
         /// Загрузка картинки из БД
@@ -136,7 +137,7 @@ namespace DefectsDMS
             }
             dataGridViewMain.Visible = false; this.dataGridViewSec.Visible = true;
             dataGridViewSec.RowCount--;
-            for (int i = 1; i < 6; i++)
+            for (int i = 1; i < columnsCount; i++)
             {
                 dataGridViewSec.Columns[i].HeaderText = dataGridViewMain.Columns[i].HeaderText;
             }
@@ -257,6 +258,63 @@ namespace DefectsDMS
             else
             {
                 MessageBox.Show("Ни один отчёт не был сформирован", "Ошибка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void fullView_Click(object sender, EventArgs e)
+        {
+            if(this.Height == 530)
+                this.Height = 1014;
+            else
+                this.Height = 530;
+        }
+
+        private void textBoxDescr_Enter(object sender, EventArgs e)
+        {
+            textBoxTypeDescr.Text = "";
+        }
+
+        private void textBoxDescr_Leave(object sender, EventArgs e)
+        {
+            if(textBoxTypeDescr.Text == "")
+            textBoxTypeDescr.Text = "Описание";
+        }
+
+        private void textBoxTypeName_Leave(object sender, EventArgs e)
+        {
+            if(textBoxTypeName.Text == "")
+            textBoxTypeName.Text = "Название";
+        }
+
+        private void textBoxTypeName_Enter(object sender, EventArgs e)
+        {
+            textBoxTypeName.Text = "";
+        }
+
+        private void buttonTypeAdd_Click(object sender, EventArgs e)
+        {
+            if (textBoxTypeName.Text != "Название" && textBoxTypeDescr.Text != "Описание")
+            {
+                try
+                {
+                    SqlCommand sqlCommand = new SqlCommand("addType", sqlCon);
+                    sqlCommand.Parameters.AddWithValue("@type", textBoxTypeName.Text);
+                    sqlCommand.Parameters.AddWithValue("@description", textBoxTypeDescr.Text);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;                   
+                    sqlCommand.ExecuteNonQuery();
+                    //SqlCommand sqlCommand = new SqlCommand("INSERT INTO type_table VALUES ('" + textBoxTypeName.Text + "', '"+ textBoxTypeDescr.Text +"')", sqlCon);
+                    //sqlCommand.ExecuteScalar();
+                    //DataSet dataSet = new DataSet();
+                    //dataAdapter.Fill(dataSet);
+                }
+                catch (Exception ex)
+                {
+                    ShowError(ex);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Данные введены некорректно.", "Ошибка", MessageBoxButtons.OK);
             }
         }
     }
