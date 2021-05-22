@@ -1,7 +1,7 @@
 ﻿
 namespace DefectsDMS
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,6 +29,7 @@ namespace DefectsDMS
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.СохранитьОтчётToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,10 +46,14 @@ namespace DefectsDMS
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.fullView = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewSec = new System.Windows.Forms.DataGridView();
             this.filterBox = new System.Windows.Forms.GroupBox();
+            this.gaussianBlurCheckBox = new System.Windows.Forms.CheckBox();
             this.confirmBtn = new System.Windows.Forms.Button();
             this.labelSmooth = new System.Windows.Forms.Label();
             this.labelSegment = new System.Windows.Forms.Label();
@@ -63,7 +68,10 @@ namespace DefectsDMS
             this.checkBox2Defect = new System.Windows.Forms.CheckBox();
             this.checkBox1Negative = new System.Windows.Forms.CheckBox();
             this.trackBarSegment = new System.Windows.Forms.TrackBar();
-            this.gaussianBlurCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBoxSemi = new System.Windows.Forms.GroupBox();
+            this.textBoxTypeDescr = new System.Windows.Forms.TextBox();
+            this.buttonTypeAdd = new System.Windows.Forms.Button();
+            this.textBoxTypeName = new System.Windows.Forms.TextBox();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
@@ -72,6 +80,7 @@ namespace DefectsDMS
             this.filterBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSmooth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).BeginInit();
+            this.groupBoxSemi.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -182,8 +191,11 @@ namespace DefectsDMS
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.toolStripTextBox1,
+            this.toolStripButton1,
+            this.toolStripSeparator1,
             this.toolStripLabel3,
-            this.toolStripButton1});
+            this.toolStripSeparator2,
+            this.fullView});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1081, 26);
@@ -204,16 +216,6 @@ namespace DefectsDMS
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(150, 26);
             // 
-            // toolStripLabel3
-            // 
-            this.toolStripLabel3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Padding = new System.Windows.Forms.Padding(0, 0, 20, 0);
-            this.toolStripLabel3.Size = new System.Drawing.Size(203, 23);
-            this.toolStripLabel3.Text = "Сброс строки поиска";
-            this.toolStripLabel3.Click += new System.EventHandler(this.toolStripLabel3_Click);
-            // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -224,6 +226,36 @@ namespace DefectsDMS
             this.toolStripButton1.Size = new System.Drawing.Size(96, 23);
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Padding = new System.Windows.Forms.Padding(0, 0, 20, 0);
+            this.toolStripLabel3.Size = new System.Drawing.Size(203, 23);
+            this.toolStripLabel3.Text = "Сброс строки поиска";
+            this.toolStripLabel3.Click += new System.EventHandler(this.toolStripLabel3_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+            // 
+            // fullView
+            // 
+            this.fullView.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.fullView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.fullView.Image = ((System.Drawing.Image)(resources.GetObject("fullView.Image")));
+            this.fullView.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fullView.Name = "fullView";
+            this.fullView.Size = new System.Drawing.Size(113, 23);
+            this.fullView.Text = "Расширенный вид";
+            this.fullView.Click += new System.EventHandler(this.fullView_Click);
             // 
             // dataGridViewSec
             // 
@@ -261,6 +293,17 @@ namespace DefectsDMS
             this.filterBox.Size = new System.Drawing.Size(241, 434);
             this.filterBox.TabIndex = 5;
             this.filterBox.TabStop = false;
+            // 
+            // gaussianBlurCheckBox
+            // 
+            this.gaussianBlurCheckBox.AutoSize = true;
+            this.gaussianBlurCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.gaussianBlurCheckBox.Location = new System.Drawing.Point(6, 354);
+            this.gaussianBlurCheckBox.Name = "gaussianBlurCheckBox";
+            this.gaussianBlurCheckBox.Size = new System.Drawing.Size(141, 20);
+            this.gaussianBlurCheckBox.TabIndex = 22;
+            this.gaussianBlurCheckBox.Text = "Размытие Гаусса";
+            this.gaussianBlurCheckBox.UseVisualStyleBackColor = true;
             // 
             // confirmBtn
             // 
@@ -417,22 +460,54 @@ namespace DefectsDMS
             this.trackBarSegment.TickFrequency = 18;
             this.trackBarSegment.ValueChanged += new System.EventHandler(this.trackBarSegment_ValueChanged);
             // 
-            // checkBox1
+            // groupBoxSemi
             // 
-            this.gaussianBlurCheckBox.AutoSize = true;
-            this.gaussianBlurCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.gaussianBlurCheckBox.Location = new System.Drawing.Point(6, 354);
-            this.gaussianBlurCheckBox.Name = "checkBox1";
-            this.gaussianBlurCheckBox.Size = new System.Drawing.Size(141, 20);
-            this.gaussianBlurCheckBox.TabIndex = 22;
-            this.gaussianBlurCheckBox.Text = "Размытие Гаусса";
-            this.gaussianBlurCheckBox.UseVisualStyleBackColor = true;
+            this.groupBoxSemi.Controls.Add(this.textBoxTypeName);
+            this.groupBoxSemi.Controls.Add(this.textBoxTypeDescr);
+            this.groupBoxSemi.Controls.Add(this.buttonTypeAdd);
+            this.groupBoxSemi.Location = new System.Drawing.Point(259, 492);
+            this.groupBoxSemi.Name = "groupBoxSemi";
+            this.groupBoxSemi.Size = new System.Drawing.Size(241, 471);
+            this.groupBoxSemi.TabIndex = 6;
+            this.groupBoxSemi.TabStop = false;
             // 
-            // Form1
+            // textBoxTypeDescr
+            // 
+            this.textBoxTypeDescr.Location = new System.Drawing.Point(7, 353);
+            this.textBoxTypeDescr.Multiline = true;
+            this.textBoxTypeDescr.Name = "textBoxTypeDescr";
+            this.textBoxTypeDescr.Size = new System.Drawing.Size(228, 48);
+            this.textBoxTypeDescr.TabIndex = 7;
+            this.textBoxTypeDescr.Text = "Описание";
+            this.textBoxTypeDescr.Enter += new System.EventHandler(this.textBoxDescr_Enter);
+            this.textBoxTypeDescr.Leave += new System.EventHandler(this.textBoxDescr_Leave);
+            // 
+            // buttonTypeAdd
+            // 
+            this.buttonTypeAdd.Location = new System.Drawing.Point(74, 419);
+            this.buttonTypeAdd.Name = "buttonTypeAdd";
+            this.buttonTypeAdd.Size = new System.Drawing.Size(85, 37);
+            this.buttonTypeAdd.TabIndex = 7;
+            this.buttonTypeAdd.Text = "Добавить тип";
+            this.buttonTypeAdd.UseVisualStyleBackColor = true;
+            this.buttonTypeAdd.Click += new System.EventHandler(this.buttonTypeAdd_Click);
+            // 
+            // textBoxTypeName
+            // 
+            this.textBoxTypeName.Location = new System.Drawing.Point(6, 313);
+            this.textBoxTypeName.Name = "textBoxTypeName";
+            this.textBoxTypeName.Size = new System.Drawing.Size(228, 20);
+            this.textBoxTypeName.TabIndex = 8;
+            this.textBoxTypeName.Text = "Название";
+            this.textBoxTypeName.Enter += new System.EventHandler(this.textBoxTypeName_Enter);
+            this.textBoxTypeName.Leave += new System.EventHandler(this.textBoxTypeName_Leave);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1081, 491);
+            this.ClientSize = new System.Drawing.Size(1081, 1048);
+            this.Controls.Add(this.groupBoxSemi);
             this.Controls.Add(this.filterBox);
             this.Controls.Add(this.dataGridViewSec);
             this.Controls.Add(this.toolStrip1);
@@ -440,7 +515,7 @@ namespace DefectsDMS
             this.Controls.Add(this.dataGridViewMain);
             this.Controls.Add(this.mainMenuStrip);
             this.MainMenuStrip = this.mainMenuStrip;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -455,6 +530,8 @@ namespace DefectsDMS
             this.filterBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSmooth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).EndInit();
+            this.groupBoxSemi.ResumeLayout(false);
+            this.groupBoxSemi.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -497,6 +574,13 @@ namespace DefectsDMS
         private System.Windows.Forms.Label labelSegment;
         private System.Windows.Forms.Button confirmBtn;
         private System.Windows.Forms.CheckBox gaussianBlurCheckBox;
+        private System.Windows.Forms.ToolStripButton fullView;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.GroupBox groupBoxSemi;
+        private System.Windows.Forms.Button buttonTypeAdd;
+        private System.Windows.Forms.TextBox textBoxTypeDescr;
+        private System.Windows.Forms.TextBox textBoxTypeName;
     }
 }
 
