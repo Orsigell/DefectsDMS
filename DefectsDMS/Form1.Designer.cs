@@ -68,10 +68,14 @@ namespace DefectsDMS
             this.checkBox2Defect = new System.Windows.Forms.CheckBox();
             this.checkBox1Negative = new System.Windows.Forms.CheckBox();
             this.trackBarSegment = new System.Windows.Forms.TrackBar();
-            this.groupBoxSemi = new System.Windows.Forms.GroupBox();
+            this.groupBoxType = new System.Windows.Forms.GroupBox();
+            this.textBoxTypeName = new System.Windows.Forms.TextBox();
             this.textBoxTypeDescr = new System.Windows.Forms.TextBox();
             this.buttonTypeAdd = new System.Windows.Forms.Button();
-            this.textBoxTypeName = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxType = new System.Windows.Forms.ComboBox();
+            this.textBoxPhotoName = new System.Windows.Forms.TextBox();
+            this.buttonPhotoAdd = new System.Windows.Forms.Button();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
@@ -80,7 +84,8 @@ namespace DefectsDMS
             this.filterBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSmooth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).BeginInit();
-            this.groupBoxSemi.SuspendLayout();
+            this.groupBoxType.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -90,7 +95,7 @@ namespace DefectsDMS
             this.справкаToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(1081, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1071, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -198,7 +203,7 @@ namespace DefectsDMS
             this.fullView});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1081, 26);
+            this.toolStrip1.Size = new System.Drawing.Size(1071, 26);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -400,9 +405,9 @@ namespace DefectsDMS
             this.checkBoxSmooth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBoxSmooth.Location = new System.Drawing.Point(6, 267);
             this.checkBoxSmooth.Name = "checkBoxSmooth";
-            this.checkBoxSmooth.Size = new System.Drawing.Size(133, 20);
+            this.checkBoxSmooth.Size = new System.Drawing.Size(115, 20);
             this.checkBoxSmooth.TabIndex = 13;
-            this.checkBoxSmooth.Text = "Сглаживание (?)";
+            this.checkBoxSmooth.Text = "Сглаживание";
             this.checkBoxSmooth.UseVisualStyleBackColor = true;
             // 
             // checkBoxSegment
@@ -434,9 +439,9 @@ namespace DefectsDMS
             this.checkBox2Defect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBox2Defect.Location = new System.Drawing.Point(4, 63);
             this.checkBox2Defect.Name = "checkBox2Defect";
-            this.checkBox2Defect.Size = new System.Drawing.Size(221, 20);
+            this.checkBox2Defect.Size = new System.Drawing.Size(161, 20);
             this.checkBox2Defect.TabIndex = 10;
-            this.checkBox2Defect.Text = "Выделение дефекта (Опасно)";
+            this.checkBox2Defect.Text = "Выделение дефекта";
             this.checkBox2Defect.UseVisualStyleBackColor = true;
             // 
             // checkBox1Negative
@@ -460,20 +465,31 @@ namespace DefectsDMS
             this.trackBarSegment.TickFrequency = 18;
             this.trackBarSegment.ValueChanged += new System.EventHandler(this.trackBarSegment_ValueChanged);
             // 
-            // groupBoxSemi
+            // groupBoxType
             // 
-            this.groupBoxSemi.Controls.Add(this.textBoxTypeName);
-            this.groupBoxSemi.Controls.Add(this.textBoxTypeDescr);
-            this.groupBoxSemi.Controls.Add(this.buttonTypeAdd);
-            this.groupBoxSemi.Location = new System.Drawing.Point(259, 492);
-            this.groupBoxSemi.Name = "groupBoxSemi";
-            this.groupBoxSemi.Size = new System.Drawing.Size(241, 471);
-            this.groupBoxSemi.TabIndex = 6;
-            this.groupBoxSemi.TabStop = false;
+            this.groupBoxType.Controls.Add(this.textBoxTypeName);
+            this.groupBoxType.Controls.Add(this.textBoxTypeDescr);
+            this.groupBoxType.Controls.Add(this.buttonTypeAdd);
+            this.groupBoxType.Location = new System.Drawing.Point(1075, 220);
+            this.groupBoxType.Name = "groupBoxType";
+            this.groupBoxType.Size = new System.Drawing.Size(241, 180);
+            this.groupBoxType.TabIndex = 6;
+            this.groupBoxType.TabStop = false;
+            this.groupBoxType.Text = "Добавление нового типа";
+            // 
+            // textBoxTypeName
+            // 
+            this.textBoxTypeName.Location = new System.Drawing.Point(6, 35);
+            this.textBoxTypeName.Name = "textBoxTypeName";
+            this.textBoxTypeName.Size = new System.Drawing.Size(228, 20);
+            this.textBoxTypeName.TabIndex = 8;
+            this.textBoxTypeName.Text = "Название";
+            this.textBoxTypeName.Enter += new System.EventHandler(this.textBoxTypeName_Enter);
+            this.textBoxTypeName.Leave += new System.EventHandler(this.textBoxTypeName_Leave);
             // 
             // textBoxTypeDescr
             // 
-            this.textBoxTypeDescr.Location = new System.Drawing.Point(7, 353);
+            this.textBoxTypeDescr.Location = new System.Drawing.Point(6, 78);
             this.textBoxTypeDescr.Multiline = true;
             this.textBoxTypeDescr.Name = "textBoxTypeDescr";
             this.textBoxTypeDescr.Size = new System.Drawing.Size(228, 48);
@@ -484,7 +500,7 @@ namespace DefectsDMS
             // 
             // buttonTypeAdd
             // 
-            this.buttonTypeAdd.Location = new System.Drawing.Point(74, 419);
+            this.buttonTypeAdd.Location = new System.Drawing.Point(83, 132);
             this.buttonTypeAdd.Name = "buttonTypeAdd";
             this.buttonTypeAdd.Size = new System.Drawing.Size(85, 37);
             this.buttonTypeAdd.TabIndex = 7;
@@ -492,31 +508,67 @@ namespace DefectsDMS
             this.buttonTypeAdd.UseVisualStyleBackColor = true;
             this.buttonTypeAdd.Click += new System.EventHandler(this.buttonTypeAdd_Click);
             // 
-            // textBoxTypeName
+            // groupBox1
             // 
-            this.textBoxTypeName.Location = new System.Drawing.Point(6, 313);
-            this.textBoxTypeName.Name = "textBoxTypeName";
-            this.textBoxTypeName.Size = new System.Drawing.Size(228, 20);
-            this.textBoxTypeName.TabIndex = 8;
-            this.textBoxTypeName.Text = "Название";
-            this.textBoxTypeName.Enter += new System.EventHandler(this.textBoxTypeName_Enter);
-            this.textBoxTypeName.Leave += new System.EventHandler(this.textBoxTypeName_Leave);
+            this.groupBox1.Controls.Add(this.comboBoxType);
+            this.groupBox1.Controls.Add(this.textBoxPhotoName);
+            this.groupBox1.Controls.Add(this.buttonPhotoAdd);
+            this.groupBox1.Location = new System.Drawing.Point(1075, 52);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(241, 150);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Добавление нового фото";
+            // 
+            // comboBoxType
+            // 
+            this.comboBoxType.FormattingEnabled = true;
+            this.comboBoxType.Items.AddRange(new object[] {
+            "Выберите тип фото"});
+            this.comboBoxType.Location = new System.Drawing.Point(7, 34);
+            this.comboBoxType.Name = "comboBoxType";
+            this.comboBoxType.Size = new System.Drawing.Size(228, 21);
+            this.comboBoxType.TabIndex = 9;
+            this.comboBoxType.Text = "Выберите тип фото";
+            // 
+            // textBoxPhotoName
+            // 
+            this.textBoxPhotoName.Location = new System.Drawing.Point(7, 78);
+            this.textBoxPhotoName.Name = "textBoxPhotoName";
+            this.textBoxPhotoName.Size = new System.Drawing.Size(228, 20);
+            this.textBoxPhotoName.TabIndex = 8;
+            this.textBoxPhotoName.Text = "Название";
+            this.textBoxPhotoName.Enter += new System.EventHandler(this.textBoxPhotoName_Enter);
+            this.textBoxPhotoName.Leave += new System.EventHandler(this.textBoxPhotoName_Leave);
+            // 
+            // buttonPhotoAdd
+            // 
+            this.buttonPhotoAdd.Location = new System.Drawing.Point(80, 104);
+            this.buttonPhotoAdd.Name = "buttonPhotoAdd";
+            this.buttonPhotoAdd.Size = new System.Drawing.Size(85, 37);
+            this.buttonPhotoAdd.TabIndex = 7;
+            this.buttonPhotoAdd.Text = "Добавить фото";
+            this.buttonPhotoAdd.UseVisualStyleBackColor = true;
+            this.buttonPhotoAdd.Click += new System.EventHandler(this.buttonPhotoAdd_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1081, 1048);
-            this.Controls.Add(this.groupBoxSemi);
+            this.ClientSize = new System.Drawing.Size(1071, 490);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxType);
             this.Controls.Add(this.filterBox);
             this.Controls.Add(this.dataGridViewSec);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.pictureBoxMain);
             this.Controls.Add(this.dataGridViewMain);
             this.Controls.Add(this.mainMenuStrip);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.mainMenuStrip;
+            this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "DefectsDMS";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.mainMenuStrip.ResumeLayout(false);
@@ -530,8 +582,10 @@ namespace DefectsDMS
             this.filterBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSmooth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).EndInit();
-            this.groupBoxSemi.ResumeLayout(false);
-            this.groupBoxSemi.PerformLayout();
+            this.groupBoxType.ResumeLayout(false);
+            this.groupBoxType.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -577,10 +631,14 @@ namespace DefectsDMS
         private System.Windows.Forms.ToolStripButton fullView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.GroupBox groupBoxSemi;
+        private System.Windows.Forms.GroupBox groupBoxType;
         private System.Windows.Forms.Button buttonTypeAdd;
         private System.Windows.Forms.TextBox textBoxTypeDescr;
         private System.Windows.Forms.TextBox textBoxTypeName;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox comboBoxType;
+        private System.Windows.Forms.TextBox textBoxPhotoName;
+        private System.Windows.Forms.Button buttonPhotoAdd;
     }
 }
 

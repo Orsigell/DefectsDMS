@@ -19,7 +19,8 @@ namespace DefectsDMS
         SqlConnection sqlCon = null;
         SqlDataAdapter sqlAdapter = null;
         DataTable table = new DataTable();
-        const int columnsCount = 5;
+        const int columnsCount = 4;
+        string globalID = "";
         public MainForm()
         {          
             InitializeComponent();
@@ -50,7 +51,7 @@ namespace DefectsDMS
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True");
+            sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=SSPI");
             sqlCon.Open();
 
             GetDataFromDB("SELECT photo_id, photo_name, type, description FROM photo_table, type_table WHERE " +
@@ -90,18 +91,20 @@ namespace DefectsDMS
         private void dataGridViewSec_CellClick(object sender, DataGridViewCellEventArgs e) //клик на поисковую таблицу
         {
             dataGridViewMain.ClearSelection();
+            globalID = dataGridViewSec[0, dataGridViewSec.SelectedCells[0].RowIndex].Value.ToString();
             if (dataGridViewSec.SelectedCells.Count >= 1)
             {
-                LoadPictureToPictureBox(dataGridViewSec[0, dataGridViewSec.SelectedCells[0].RowIndex].Value.ToString());
+                LoadPictureToPictureBox(globalID);
                 photoName = dataGridViewSec[1, dataGridViewSec.SelectedCells[0].RowIndex].Value.ToString();
             }
         }
         private void dataGridViewMain_CellClick(object sender, DataGridViewCellEventArgs e) //клик на основную таблицу
         {
             dataGridViewSec.ClearSelection();
+            globalID = dataGridViewMain[0, dataGridViewMain.SelectedCells[0].RowIndex].Value.ToString();
             if (dataGridViewMain.SelectedCells.Count >= 1)
             {
-                LoadPictureToPictureBox(dataGridViewMain[0, dataGridViewMain.SelectedCells[0].RowIndex].Value.ToString());
+                LoadPictureToPictureBox(globalID);
                 photoName = dataGridViewMain[1, dataGridViewMain.SelectedCells[0].RowIndex].Value.ToString();
             }
         }
@@ -180,55 +183,93 @@ namespace DefectsDMS
 
         private void confirmBtn_Click(object sender, EventArgs e)
         {
-            if(pictureBoxMain.Image == null)
+            
+            Image tmpimage;
+                                   
+            if (pictureBoxMain.Image == null)
             {
                 MessageBox.Show("Выберите изображение из таблицы", "Изображение не выбрано", MessageBoxButtons.OK);
                 return;
             }
-            List <PDFCreator.FilterResult> imageList = new List<PDFCreator.FilterResult>();
-            imageList.Add(new PDFCreator.FilterResult(photoName, pictureBoxMain.Image));
-            if(checkBox1Negative.Checked)
+            try
             {
-                imageList.Add(new PDFCreator.FilterResult(checkBox1Negative.Text,ImageFilter.Negative(pictureBoxMain.Image)));
-            }
-            if(checkBox2Defect.Checked)
-            {
-                imageList.Add(new PDFCreator.FilterResult(checkBox2Defect.Text, ImageFilter.HighlightingDefect(pictureBoxMain.Image)));
-            }
-            if(checkBox3Histo.Checked)
-            {
-                ImageFilter.HistogramsRGBL hist = ImageFilter.BarGraph(pictureBoxMain.Image, 1600, 100);
-                if(R.Checked)
+                List<PDFCreator.FilterResult> imageList = new List<PDFCreator.FilterResult>();
+                imageList.Add(new PDFCreator.FilterResult(photoName, pictureBoxMain.Image));
+                if (checkBox1Negative.Checked)
                 {
-                    imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.RedHistogram));
+                    tmpimage = ImageFilter.Negative(pictureBoxMain.Image);
+                    imageList.Add(new PDFCreator.FilterResult(checkBox1Negative.Text, tmpimage));
+                    LoadFilteredPhotoToDB(tmpimage, "photo_negative");
                 }
-                if (G.Checked)
+                if (checkBox2Defect.Checked)
                 {
-                    imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.GreenHistogram));
+                    tmpimage = ImageFilter.HighlightingDefect(pictureBoxMain.Image);
+                    imageList.Add(new PDFCreator.FilterResult(checkBox2Defect.Text, tmpimage));
+                    LoadFilteredPhotoToDB(tmpimage, "photo_highlight");
                 }
-                if (B.Checked)
+                if (checkBox3Histo.Checked)
                 {
-                    imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.BlueHistogram));
+                    ImageFilter.HistogramsRGBL hist = ImageFilter.BarGraph(pictureBoxMain.Image, 1600, 100);
+                    if (R.Checked)
+                    {
+                        tmpimage = hist.RedHistogram;
+                        imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, tmpimage));
+                        LoadFilteredPhotoToDB(tmpimage, "photo_histoR");
+                    }
+                    if (G.Checked)
+                    {
+                        tmpimage = hist.GreenHistogram;
+                        imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, tmpimage));
+                        LoadFilteredPhotoToDB(tmpimage, "photo_histoG");
+                    }
+                    if (B.Checked)
+                    {
+                        tmpimage = hist.BlueHistogram;
+                        imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, tmpimage));
+                        LoadFilteredPhotoToDB(tmpimage, "photo_histoB");
+                    }
+                    if (L.Checked)
+                    {
+                        tmpimage = hist.LumHistogram;
+                        imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, tmpimage));
+                        LoadFilteredPhotoToDB(tmpimage, "photo_histoL");
+                    }
                 }
-                if (L.Checked)
+                if (checkBoxSegment.Checked)
                 {
-                    imageList.Add(new PDFCreator.FilterResult(checkBox3Histo.Text, hist.LumHistogram));
+                    tmpimage = ImageFilter.Segmentation(pictureBoxMain.Image, trackBarSegment.Value);
+                    imageList.Add(new PDFCreator.FilterResult(checkBoxSegment.Text, tmpimage));
+                    LoadFilteredPhotoToDB(tmpimage, "photo_segment");
                 }
+                if (checkBoxSmooth.Checked)
+                {
+                    tmpimage = ImageFilter.ImageSmoothing(pictureBoxMain.Image, trackBarSmooth.Value);
+                    imageList.Add(new PDFCreator.FilterResult(checkBoxSmooth.Text, tmpimage));
+                    LoadFilteredPhotoToDB(tmpimage, "photo_smooth");
+                }
+                if (gaussianBlurCheckBox.Checked)
+                {
+                    tmpimage = ImageFilter.GaussianBlur(pictureBoxMain.Image);
+                    imageList.Add(new PDFCreator.FilterResult(gaussianBlurCheckBox.Text, tmpimage));
+                    LoadFilteredPhotoToDB(tmpimage, "photo_gauss");
+                }
+                PDFCreator.CreateDocument(imageList.ToArray());
+                System.Diagnostics.Process.Start(PDFCreator.filename); //открытие файла
             }
-            if(checkBoxSegment.Checked)
+            catch (Exception ex)
             {
-                imageList.Add(new PDFCreator.FilterResult(checkBoxSegment.Text, ImageFilter.Segmentation(pictureBoxMain.Image, trackBarSegment.Value)));
+                ShowError(ex);
             }
-            if(checkBoxSmooth.Checked)
-            {
-                imageList.Add(new PDFCreator.FilterResult(checkBoxSmooth.Text, ImageFilter.ImageSmoothing(pictureBoxMain.Image, trackBarSmooth.Value)));
-            }
-            if (gaussianBlurCheckBox.Checked)
-            {
-                imageList.Add(new PDFCreator.FilterResult(gaussianBlurCheckBox.Text, ImageFilter.GaussianBlur(pictureBoxMain.Image)));
-            }
-            PDFCreator.CreateDocument(imageList.ToArray());
-            System.Diagnostics.Process.Start(PDFCreator.filename); //открытие файла
+        }
+
+        private void LoadFilteredPhotoToDB(Image tmpimage, string photoColumn)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            tmpimage.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+            byte[] image = memoryStream.ToArray();
+            SqlCommand sqlCommand = new SqlCommand($"UPDATE photo_table SET {photoColumn} = @Image WHERE photo_id = {globalID}", sqlCon);
+            sqlCommand.Parameters.AddWithValue("@Image", image);
+            sqlCommand.ExecuteNonQuery();
         }
 
         private void СохранитьОтчётToolStripMenuItem_Click(object sender, EventArgs e)
@@ -263,10 +304,24 @@ namespace DefectsDMS
 
         private void fullView_Click(object sender, EventArgs e)
         {
-            if(this.Height == 530)
-                this.Height = 1014;
+            UpdateTypesToComboBox();
+            if (this.Width == 1087)
+                this.Width = 1339;
             else
-                this.Height = 530;
+                this.Width = 1087;
+        }
+
+        private void UpdateTypesToComboBox()
+        {
+            comboBoxType.Items.Clear();
+            SqlCommand sqlCommand = new SqlCommand("Select type from type_table", sqlCon);
+            using (SqlDataReader rdr = sqlCommand.ExecuteReader())
+            {
+                while (rdr.Read())
+                {
+                    comboBoxType.Items.Add(rdr["type"]);
+                }
+            }
         }
 
         private void textBoxDescr_Enter(object sender, EventArgs e)
@@ -300,12 +355,13 @@ namespace DefectsDMS
                     SqlCommand sqlCommand = new SqlCommand("addType", sqlCon);
                     sqlCommand.Parameters.AddWithValue("@type", textBoxTypeName.Text);
                     sqlCommand.Parameters.AddWithValue("@description", textBoxTypeDescr.Text);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;                   
-                    sqlCommand.ExecuteNonQuery();
-                    //SqlCommand sqlCommand = new SqlCommand("INSERT INTO type_table VALUES ('" + textBoxTypeName.Text + "', '"+ textBoxTypeDescr.Text +"')", sqlCon);
-                    //sqlCommand.ExecuteScalar();
-                    //DataSet dataSet = new DataSet();
-                    //dataAdapter.Fill(dataSet);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    int tmp = sqlCommand.ExecuteNonQuery();
+                    UpdateTypesToComboBox();
+                    //SqlCommand sqlCommand = new SqlCommand("INSERT INTO type_table (type, description) VALUES (N'" + textBoxTypeName.Text + "', N'" + textBoxTypeDescr.Text + "')", sqlCon);
+                    //sqlCommand.ExecuteNonQuery();
+                    ////DataSet dataSet = new DataSet();
+                    ////dataAdapter.Fill(dataSet);
                 }
                 catch (Exception ex)
                 {
@@ -315,6 +371,41 @@ namespace DefectsDMS
             else
             {
                 MessageBox.Show("Данные введены некорректно.", "Ошибка", MessageBoxButtons.OK);
+            }
+        }
+
+        private void textBoxPhotoName_Enter(object sender, EventArgs e)
+        {
+            textBoxPhotoName.Text = "";
+        }
+
+        private void textBoxPhotoName_Leave(object sender, EventArgs e)
+        {
+            if (textBoxPhotoName.Text == "")
+                textBoxPhotoName.Text = "Название";
+        }
+
+        private void buttonPhotoAdd_Click(object sender, EventArgs e)
+        {
+            byte[] image;
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Файлы изображений (PNG, JPG, JPEG)|*.png;*.jpg;*.jpeg|Все файлы (*.*)|*.*";
+                openFileDialog.Title = "Выбрать изображение";
+                openFileDialog.ShowDialog();
+                if (openFileDialog.FileName != "" && File.Exists(openFileDialog.FileName)&& comboBoxType.SelectedItem != null)
+                {
+                    image = File.ReadAllBytes(openFileDialog.FileName);
+                    SqlCommand sqlCommand = new SqlCommand($"INSERT INTO photo_table (type_id, photo_name, photo) VALUES " +
+                        $"((SELECT type_id FROM type_table WHERE type = '{comboBoxType.SelectedItem}'), '{textBoxPhotoName}', @Image)", sqlCon);
+                    sqlCommand.Parameters.AddWithValue("@Image", image);
+                    sqlCommand.ExecuteNonQuery();
+                }                
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
             }
         }
     }
