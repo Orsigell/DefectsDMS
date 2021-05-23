@@ -84,8 +84,6 @@ namespace DefectsDMS
             this.filterBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSmooth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).BeginInit();
-            this.groupBoxType.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
