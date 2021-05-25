@@ -51,11 +51,12 @@ namespace DefectsDMS
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=SSPI");
+            sqlCon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=true");
             sqlCon.Open();
 
             GetDataFromDB("SELECT photo_id, photo_name, type, description FROM photo_table, type_table WHERE " +
                 "type_table.type_id = photo_table.type_id"); // AND characteristics_table.characteristics_id = photo_table.characteristics_id
+            UpdateTypesToComboBox();
         }
         /// <summary>
         /// Загрузка картинки из БД
@@ -387,6 +388,11 @@ namespace DefectsDMS
 
         private void buttonPhotoAdd_Click(object sender, EventArgs e)
         {
+            if (textBoxPhotoName.Text == "" || textBoxPhotoName.Text == "Название")
+            {
+                MessageBox.Show("Укажите название фото", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             byte[] image;
             try
             {
@@ -394,19 +400,21 @@ namespace DefectsDMS
                 openFileDialog.Filter = "Файлы изображений (PNG, JPG, JPEG)|*.png;*.jpg;*.jpeg|Все файлы (*.*)|*.*";
                 openFileDialog.Title = "Выбрать изображение";
                 openFileDialog.ShowDialog();
-                if (openFileDialog.FileName != "" && File.Exists(openFileDialog.FileName)&& comboBoxType.SelectedItem != null)
+                if (openFileDialog.FileName != "" && File.Exists(openFileDialog.FileName) && comboBoxType.SelectedItem != null)
                 {
                     image = File.ReadAllBytes(openFileDialog.FileName);
                     SqlCommand sqlCommand = new SqlCommand($"INSERT INTO photo_table (type_id, photo_name, photo) VALUES " +
-                        $"((SELECT type_id FROM type_table WHERE type = '{comboBoxType.SelectedItem}'), '{textBoxPhotoName}', @Image)", sqlCon);
+                       $"((SELECT type_id FROM type_table WHERE type LIKE N'{comboBoxType.SelectedItem}'), N'{textBoxPhotoName.Text}', @Image)", sqlCon);
                     sqlCommand.Parameters.AddWithValue("@Image", image);
                     sqlCommand.ExecuteNonQuery();
-                }                
+                }
+                GetDataFromDB("SELECT photo_id, photo_name, type, description FROM photo_table, type_table WHERE " +
+                "type_table.type_id = photo_table.type_id");
             }
             catch (Exception ex)
             {
                 ShowError(ex);
-            }
+            }           
         }
     }
 }

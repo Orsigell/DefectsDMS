@@ -73,6 +73,7 @@ namespace DefectsDMS
             this.textBoxTypeDescr = new System.Windows.Forms.TextBox();
             this.buttonTypeAdd = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.textBoxPhotoName = new System.Windows.Forms.TextBox();
             this.buttonPhotoAdd = new System.Windows.Forms.Button();
@@ -84,6 +85,8 @@ namespace DefectsDMS
             this.filterBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSmooth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).BeginInit();
+            this.groupBoxType.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -468,7 +471,7 @@ namespace DefectsDMS
             this.groupBoxType.Controls.Add(this.textBoxTypeName);
             this.groupBoxType.Controls.Add(this.textBoxTypeDescr);
             this.groupBoxType.Controls.Add(this.buttonTypeAdd);
-            this.groupBoxType.Location = new System.Drawing.Point(1075, 220);
+            this.groupBoxType.Location = new System.Drawing.Point(1075, 246);
             this.groupBoxType.Name = "groupBoxType";
             this.groupBoxType.Size = new System.Drawing.Size(241, 180);
             this.groupBoxType.TabIndex = 6;
@@ -508,30 +511,40 @@ namespace DefectsDMS
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.comboBoxType);
             this.groupBox1.Controls.Add(this.textBoxPhotoName);
             this.groupBox1.Controls.Add(this.buttonPhotoAdd);
-            this.groupBox1.Location = new System.Drawing.Point(1075, 52);
+            this.groupBox1.Location = new System.Drawing.Point(1075, 53);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(241, 150);
+            this.groupBox1.Size = new System.Drawing.Size(241, 166);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Добавление нового фото";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(126, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Выберите тип дефекта:";
+            // 
             // comboBoxType
             // 
+            this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxType.FormattingEnabled = true;
             this.comboBoxType.Items.AddRange(new object[] {
             "Выберите тип фото"});
-            this.comboBoxType.Location = new System.Drawing.Point(7, 34);
+            this.comboBoxType.Location = new System.Drawing.Point(6, 43);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(228, 21);
             this.comboBoxType.TabIndex = 9;
-            this.comboBoxType.Text = "Выберите тип фото";
             // 
             // textBoxPhotoName
             // 
-            this.textBoxPhotoName.Location = new System.Drawing.Point(7, 78);
+            this.textBoxPhotoName.Location = new System.Drawing.Point(6, 88);
             this.textBoxPhotoName.Name = "textBoxPhotoName";
             this.textBoxPhotoName.Size = new System.Drawing.Size(228, 20);
             this.textBoxPhotoName.TabIndex = 8;
@@ -541,7 +554,7 @@ namespace DefectsDMS
             // 
             // buttonPhotoAdd
             // 
-            this.buttonPhotoAdd.Location = new System.Drawing.Point(80, 104);
+            this.buttonPhotoAdd.Location = new System.Drawing.Point(83, 114);
             this.buttonPhotoAdd.Name = "buttonPhotoAdd";
             this.buttonPhotoAdd.Size = new System.Drawing.Size(85, 37);
             this.buttonPhotoAdd.TabIndex = 7;
@@ -637,6 +650,7 @@ namespace DefectsDMS
         private System.Windows.Forms.ComboBox comboBoxType;
         private System.Windows.Forms.TextBox textBoxPhotoName;
         private System.Windows.Forms.Button buttonPhotoAdd;
+        private System.Windows.Forms.Label label1;
     }
 }
 
