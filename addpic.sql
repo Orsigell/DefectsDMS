@@ -1,0 +1,1 @@
+﻿insert into photo_table (type_id, photo) select 1, BulkColumn FROM Openrowset(Bulk 'E:\tmp\tmphoto (50).jpg', Single_Blob) as img

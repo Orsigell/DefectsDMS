@@ -46,7 +46,6 @@ namespace DefectsDMS
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.dataGridViewSec = new System.Windows.Forms.DataGridView();
             this.filterBox = new System.Windows.Forms.GroupBox();
@@ -77,6 +76,7 @@ namespace DefectsDMS
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.fullView = new System.Windows.Forms.ToolStripButton();
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
+            this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -190,7 +190,7 @@ namespace DefectsDMS
             this.toolStripTextBox1,
             this.toolStripButton1,
             this.toolStripSeparator1,
-            this.toolStripLabel3,
+            this.toolStripButtonClear,
             this.toolStripSeparator2,
             this.fullView});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
@@ -217,15 +217,6 @@ namespace DefectsDMS
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
-            // 
-            // toolStripLabel3
-            // 
-            this.toolStripLabel3.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Padding = new System.Windows.Forms.Padding(0, 0, 20, 0);
-            this.toolStripLabel3.Size = new System.Drawing.Size(203, 23);
-            this.toolStripLabel3.Text = "Сброс строки поиска";
-            this.toolStripLabel3.Click += new System.EventHandler(this.toolStripLabel3_Click);
             // 
             // toolStripSeparator2
             // 
@@ -564,6 +555,17 @@ namespace DefectsDMS
             this.pictureBoxMain.TabIndex = 2;
             this.pictureBoxMain.TabStop = false;
             // 
+            // toolStripButtonClear
+            // 
+            this.toolStripButtonClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonClear.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripButtonClear.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClear.Image")));
+            this.toolStripButtonClear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonClear.Name = "toolStripButtonClear";
+            this.toolStripButtonClear.Size = new System.Drawing.Size(187, 23);
+            this.toolStripButtonClear.Text = "Сброс строки поиска";
+            this.toolStripButtonClear.Click += new System.EventHandler(this.toolStripLabel3_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -619,7 +621,6 @@ namespace DefectsDMS
         private System.Windows.Forms.PictureBox pictureBoxMain;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.DataGridView dataGridViewSec;
@@ -653,6 +654,7 @@ namespace DefectsDMS
         private System.Windows.Forms.TextBox textBoxPhotoName;
         private System.Windows.Forms.Button buttonPhotoAdd;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonClear;
     }
 }
 
