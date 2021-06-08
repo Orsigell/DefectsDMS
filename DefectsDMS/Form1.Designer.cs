@@ -42,15 +42,12 @@ namespace DefectsDMS
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewMain = new System.Windows.Forms.DataGridView();
-            this.pictureBoxMain = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.fullView = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewSec = new System.Windows.Forms.DataGridView();
             this.filterBox = new System.Windows.Forms.GroupBox();
             this.gaussianBlurCheckBox = new System.Windows.Forms.CheckBox();
@@ -77,9 +74,11 @@ namespace DefectsDMS
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.textBoxPhotoName = new System.Windows.Forms.TextBox();
             this.buttonPhotoAdd = new System.Windows.Forms.Button();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.fullView = new System.Windows.Forms.ToolStripButton();
+            this.pictureBoxMain = new System.Windows.Forms.PictureBox();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSec)).BeginInit();
             this.filterBox.SuspendLayout();
@@ -87,6 +86,7 @@ namespace DefectsDMS
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSegment)).BeginInit();
             this.groupBoxType.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -183,15 +183,6 @@ namespace DefectsDMS
             this.dataGridViewMain.TabIndex = 1;
             this.dataGridViewMain.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMain_CellClick);
             // 
-            // pictureBoxMain
-            // 
-            this.pictureBoxMain.BackColor = System.Drawing.Color.White;
-            this.pictureBoxMain.Location = new System.Drawing.Point(259, 52);
-            this.pictureBoxMain.Name = "pictureBoxMain";
-            this.pictureBoxMain.Size = new System.Drawing.Size(371, 434);
-            this.pictureBoxMain.TabIndex = 2;
-            this.pictureBoxMain.TabStop = false;
-            // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -222,17 +213,6 @@ namespace DefectsDMS
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(150, 26);
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::DefectsDMS.Properties.Resources.btnbg;
-            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(96, 23);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -251,17 +231,6 @@ namespace DefectsDMS
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
-            // 
-            // fullView
-            // 
-            this.fullView.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.fullView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.fullView.Image = ((System.Drawing.Image)(resources.GetObject("fullView.Image")));
-            this.fullView.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.fullView.Name = "fullView";
-            this.fullView.Size = new System.Drawing.Size(113, 23);
-            this.fullView.Text = "Расширенный вид";
-            this.fullView.Click += new System.EventHandler(this.fullView_Click);
             // 
             // dataGridViewSec
             // 
@@ -562,6 +531,39 @@ namespace DefectsDMS
             this.buttonPhotoAdd.UseVisualStyleBackColor = true;
             this.buttonPhotoAdd.Click += new System.EventHandler(this.buttonPhotoAdd_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::DefectsDMS.Properties.Resources.btnbg;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(96, 23);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // fullView
+            // 
+            this.fullView.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.fullView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.fullView.Image = ((System.Drawing.Image)(resources.GetObject("fullView.Image")));
+            this.fullView.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fullView.Name = "fullView";
+            this.fullView.Size = new System.Drawing.Size(113, 23);
+            this.fullView.Text = "Расширенный вид";
+            this.fullView.Click += new System.EventHandler(this.fullView_Click);
+            // 
+            // pictureBoxMain
+            // 
+            this.pictureBoxMain.BackColor = System.Drawing.Color.White;
+            this.pictureBoxMain.Image = global::DefectsDMS.Properties.Resources.no_image;
+            this.pictureBoxMain.Location = new System.Drawing.Point(259, 52);
+            this.pictureBoxMain.Name = "pictureBoxMain";
+            this.pictureBoxMain.Size = new System.Drawing.Size(371, 434);
+            this.pictureBoxMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxMain.TabIndex = 2;
+            this.pictureBoxMain.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -585,7 +587,6 @@ namespace DefectsDMS
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSec)).EndInit();
@@ -597,6 +598,7 @@ namespace DefectsDMS
             this.groupBoxType.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
