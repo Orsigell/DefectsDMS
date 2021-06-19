@@ -303,13 +303,56 @@ namespace DefectsDMS
             }
         }
 
-        private void fullView_Click(object sender, EventArgs e)
+        private void getPhotoFromDB_Click(object sender, EventArgs e)
         {
-            UpdateTypesToComboBox();
-            if (this.Width == 1087)
-                this.Width = 1339;
-            else
-                this.Width = 1087;
+            try
+            {
+                SqlCommand sqlCom = new SqlCommand("SELECT max(photo_id) FROM photo_table", sqlCon);
+                int maxid = (int)sqlCom.ExecuteScalar();
+                GetColumnPhotoFromDB(maxid, "photo", "");
+                GetColumnPhotoFromDB(maxid, "photo_negative", "_Негатив");
+                GetColumnPhotoFromDB(maxid, "photo_highlight", "_Выделение дефекта");
+                GetColumnPhotoFromDB(maxid, "photo_histoR", "_Гистограмма красного цвета");
+                GetColumnPhotoFromDB(maxid, "photo_histoG", "_Гистограмма зелёного цвета");
+                GetColumnPhotoFromDB(maxid, "photo_histoB", "_Гистограмма красного цвета");
+                GetColumnPhotoFromDB(maxid, "photo_histoL", "_Гистограмма красного цвета");
+                GetColumnPhotoFromDB(maxid, "photo_segment", "_Сегментация");
+                GetColumnPhotoFromDB(maxid, "photo_smooth", "_Фильтрация");
+                GetColumnPhotoFromDB(maxid, "photo_gauss", "_Фильтр Гаусса");
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
+
+        private void GetColumnPhotoFromDB(int maxid, string photo, string fileName)
+        {
+            for (int i = 1; i <= maxid; i++)
+            {
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(new SqlCommand($"SELECT {photo} FROM photo_table where photo_id = {i}", sqlCon));
+                SqlCommand sqlCom = new SqlCommand($"Select photo_name FROM photo_table WHERE photo_id = {i}", sqlCon);
+                string filename = (string)sqlCom.ExecuteScalar();
+                DataSet dataSet = new DataSet();
+                dataAdapter.Fill(dataSet);
+                try
+                {
+                    Byte[] data = new Byte[0];
+                    data = (Byte[])(dataSet.Tables[0].Rows[0][photo]);
+                    if (!Directory.Exists(@"DataSet"))
+                    {
+                        Directory.CreateDirectory(@"DataSet");
+                    }
+                    if (data.Length != 0)
+                    {
+                        MemoryStream mem = new MemoryStream(data);
+                        File.WriteAllBytes($@"DataSet\{filename}{fileName}.jpg", mem.ToArray());
+                        //Image tmpImage = Image.FromStream(mem);
+                        //tmpImage.Save($@"DataSet\{filename}");   
+                    }
+                }
+                catch {}
+            }
         }
 
         private void UpdateTypesToComboBox()

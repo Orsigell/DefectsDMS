@@ -75,7 +75,7 @@ namespace DefectsDMS
             using (var client = new HttpClient())
             using (var formData = new MultipartFormDataContent())
             {
-                formData.Headers.Add("X-Api-Key", "gPPxYaiJWoJdesDuTknKjVEV");
+                formData.Headers.Add("X-Api-Key", "rPnBau8BtFm8NYVkBysNRD6V");
                 formData.Add(new ByteArrayContent(ImageToByteArr), "image_file", "file.jpg");
                 formData.Add(new StringContent("auto"), "size");
                 var response = client.PostAsync("https://api.remove.bg/v1.0/removebg", formData).Result;

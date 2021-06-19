@@ -45,8 +45,11 @@ namespace DefectsDMS
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.getPhotoFromDB = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewSec = new System.Windows.Forms.DataGridView();
             this.filterBox = new System.Windows.Forms.GroupBox();
             this.gaussianBlurCheckBox = new System.Windows.Forms.CheckBox();
@@ -73,10 +76,7 @@ namespace DefectsDMS
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.textBoxPhotoName = new System.Windows.Forms.TextBox();
             this.buttonPhotoAdd = new System.Windows.Forms.Button();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.fullView = new System.Windows.Forms.ToolStripButton();
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
-            this.toolStripButtonClear = new System.Windows.Forms.ToolStripButton();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMain)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -192,7 +192,7 @@ namespace DefectsDMS
             this.toolStripSeparator1,
             this.toolStripButtonClear,
             this.toolStripSeparator2,
-            this.fullView});
+            this.getPhotoFromDB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1071, 26);
@@ -213,15 +213,49 @@ namespace DefectsDMS
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(150, 26);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::DefectsDMS.Properties.Resources.btnbg;
+            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(96, 23);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 26);
             // 
+            // toolStripButtonClear
+            // 
+            this.toolStripButtonClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonClear.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.toolStripButtonClear.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClear.Image")));
+            this.toolStripButtonClear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonClear.Name = "toolStripButtonClear";
+            this.toolStripButtonClear.Size = new System.Drawing.Size(187, 23);
+            this.toolStripButtonClear.Text = "Сброс строки поиска";
+            this.toolStripButtonClear.Click += new System.EventHandler(this.toolStripLabel3_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+            // 
+            // getPhotoFromDB
+            // 
+            this.getPhotoFromDB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.getPhotoFromDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.getPhotoFromDB.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.getPhotoFromDB.Image = ((System.Drawing.Image)(resources.GetObject("getPhotoFromDB.Image")));
+            this.getPhotoFromDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.getPhotoFromDB.Name = "getPhotoFromDB";
+            this.getPhotoFromDB.Size = new System.Drawing.Size(215, 23);
+            this.getPhotoFromDB.Text = "Выгрузить фото из базы";
+            this.getPhotoFromDB.Click += new System.EventHandler(this.getPhotoFromDB_Click);
             // 
             // dataGridViewSec
             // 
@@ -366,9 +400,9 @@ namespace DefectsDMS
             this.checkBoxSmooth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBoxSmooth.Location = new System.Drawing.Point(6, 267);
             this.checkBoxSmooth.Name = "checkBoxSmooth";
-            this.checkBoxSmooth.Size = new System.Drawing.Size(115, 20);
+            this.checkBoxSmooth.Size = new System.Drawing.Size(107, 20);
             this.checkBoxSmooth.TabIndex = 13;
-            this.checkBoxSmooth.Text = "Сглаживание";
+            this.checkBoxSmooth.Text = "Фильтрация";
             this.checkBoxSmooth.UseVisualStyleBackColor = true;
             // 
             // checkBoxSegment
@@ -522,28 +556,6 @@ namespace DefectsDMS
             this.buttonPhotoAdd.UseVisualStyleBackColor = true;
             this.buttonPhotoAdd.Click += new System.EventHandler(this.buttonPhotoAdd_Click);
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::DefectsDMS.Properties.Resources.btnbg;
-            this.toolStripButton1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(96, 23);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // fullView
-            // 
-            this.fullView.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.fullView.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.fullView.Image = ((System.Drawing.Image)(resources.GetObject("fullView.Image")));
-            this.fullView.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.fullView.Name = "fullView";
-            this.fullView.Size = new System.Drawing.Size(113, 23);
-            this.fullView.Text = "Расширенный вид";
-            this.fullView.Click += new System.EventHandler(this.fullView_Click);
-            // 
             // pictureBoxMain
             // 
             this.pictureBoxMain.BackColor = System.Drawing.Color.White;
@@ -555,21 +567,11 @@ namespace DefectsDMS
             this.pictureBoxMain.TabIndex = 2;
             this.pictureBoxMain.TabStop = false;
             // 
-            // toolStripButtonClear
-            // 
-            this.toolStripButtonClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonClear.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toolStripButtonClear.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClear.Image")));
-            this.toolStripButtonClear.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonClear.Name = "toolStripButtonClear";
-            this.toolStripButtonClear.Size = new System.Drawing.Size(187, 23);
-            this.toolStripButtonClear.Text = "Сброс строки поиска";
-            this.toolStripButtonClear.Click += new System.EventHandler(this.toolStripLabel3_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1071, 490);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxType);
@@ -580,6 +582,7 @@ namespace DefectsDMS
             this.Controls.Add(this.dataGridViewMain);
             this.Controls.Add(this.mainMenuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -642,7 +645,7 @@ namespace DefectsDMS
         private System.Windows.Forms.Label labelSegment;
         private System.Windows.Forms.Button confirmBtn;
         private System.Windows.Forms.CheckBox gaussianBlurCheckBox;
-        private System.Windows.Forms.ToolStripButton fullView;
+        private System.Windows.Forms.ToolStripButton getPhotoFromDB;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.GroupBox groupBoxType;
