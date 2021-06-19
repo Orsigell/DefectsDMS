@@ -459,5 +459,12 @@ namespace DefectsDMS
                 ShowError(ex);
             }           
         }
+
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(@"  Автоматизированая система для работы с дефектоскопическими  изображениями
+
+                                   Разработчик: Цыброва Валерия Сергеевна, 2021","О программе");
+        }
     }
 }
